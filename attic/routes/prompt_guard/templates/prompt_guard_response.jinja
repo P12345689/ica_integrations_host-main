@@ -1,0 +1,27 @@
+The text has been evaluated using the Prompt Guard model:
+
+Jailbreak Score: {{ "%.3f"|format(result.jailbreak_score) }}
+{% if include_indirect_injection %}
+Indirect Injection Score: {{ "%.3f"|format(result.indirect_injection_score) }}
+{% endif %}
+
+{% if result.jailbreak_score > 0.5 %}
+Warning: This text has a high probability of containing a jailbreak attempt.
+{% endif %}
+
+{% if include_indirect_injection and result.indirect_injection_score > 0.5 %}
+Warning: This text has a high probability of containing embedded instructions or prompt injections.
+{% endif %}
+
+{% if result.malicious_bits %}
+Potentially malicious bits:
+{% for bit in result.malicious_bits %}
+Chunk {{ bit.chunk_index }}:
+{{ bit.text }}
+Jailbreak Score: {{ "%.3f"|format(bit.jailbreak_score) }}
+{% if include_indirect_injection %}
+Indirect Injection Score: {{ "%.3f"|format(bit.indirect_injection_score) }}
+{% endif %}
+
+{% endfor %}
+{% endif %}

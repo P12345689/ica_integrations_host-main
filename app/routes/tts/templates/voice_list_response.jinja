@@ -1,0 +1,10 @@
+Available voices for text-to-speech conversion:
+
+{% for voice in voices %}
+- {{ voice.name }}
+  Language: {{ voice.language }}
+  Gender: {{ voice.gender }}
+  Description: {{ voice.description }}
+{% endfor %}
+
+Total number of voices available: {{ voices|length }}

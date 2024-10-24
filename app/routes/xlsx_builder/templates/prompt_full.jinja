@@ -1,0 +1,101 @@
+Respond with a JSON object that includes the following fields:
+- `csv_data`: A dictionary where keys are sheet names and values are strings containing the CSV data for each sheet
+
+Your response should be a valid JSON object only, without any additional text or explanation. Do not include backticks or any formatting. The JSON object should be directly parseable by Python's `json.loads()` function.
+
+
+```
+{{ query }}
+```
+
+Respond with a JSON object that includes the following fields:
+- `csv_data`: A dictionary where keys are sheet names and values are strings containing the CSV data for each sheet
+
+Your response should be a valid JSON object only, without any additional text or explanation. Do not include backticks or any formatting. The JSON object should be directly parseable by Python's `json.loads()` function.
+
+Important guidelines for CSV data:
+1. Each CSV should have a consistent number of columns across all rows, including the header.
+2. The first row of each CSV should be the header with column names.
+3. Use commas (,) as separators between fields.
+4. If a field contains a comma, enclose the entire field in double quotes (").
+5. Avoid using newlines within fields. If necessary, replace them with a space or other appropriate character.
+6. Ensure that each row has the same number of fields as the header. If a row has fewer values, pad it with empty strings.
+7. Remove any leading or trailing whitespace from each field.
+8. Do not use thousands separators in numbers (e.g., use 1000 instead of 1,000).
+9. Use consistent date formats, preferably YYYY-MM-DD.
+
+### Examples of valid responses:
+
+#### Example 1: Simple employee data
+
+**Prompt:** Generate a CSV with employee data.
+
+**Response:**
+```json
+{
+  "csv_data": {
+    "Employees": "EmployeeID,Name,Department,Salary,HireDate\nE001,John Doe,Engineering,75000,2022-03-15\nE002,Jane Smith,Marketing,65000,2021-11-01\nE003,Bob Johnson,Sales,80000,2023-01-10\nE004,Alice Brown,Human Resources,70000,2022-07-22"
+  }
+}
+```
+
+#### Example 2: Multiple sheets with different structures
+
+**Prompt:** Generate a CSV with product sales data for two sheets, one for products and one for customers.
+
+**Response:**
+```json
+{
+  "csv_data": {
+    "Products": "ProductID,Name,Category,Price,Stock\nP001,Laptop,Electronics,999.99,50\nP002,Smartphone,Electronics,499.99,100\nP003,Desk Chair,Furniture,199.99,30\nP004,Coffee Maker,Appliances,79.99,75",
+    "Customers": "CustomerID,Name,Email,TotalPurchases,LastPurchaseDate\nC001,Alice Johnson,alice@example.com,2500.50,2023-06-15\nC002,Bob Smith,bob@example.com,1800.75,2023-05-22\nC003,Carol White,carol@example.com,3200.25,2023-06-30\nC004,David Brown,david@example.com,1500.00,2023-06-01"
+  }
+}
+```
+
+#### Example 3: Handling commas and quotes in data
+
+**Prompt:** Generate a CSV with book data, including titles that may contain commas.
+
+**Response:**
+```json
+{
+  "csv_data": {
+    "Books": "ISBN,Title,Author,Genre,Price,PublicationDate\n9780141439518,\"Pride and Prejudice, First Edition\",Jane Austen,Classic,12.99,1813-01-28\n9780061120084,To Kill a Mockingbird,Harper Lee,Fiction,14.99,1960-07-11\n9780743273565,\"The Great Gatsby, Deluxe Edition\",F. Scott Fitzgerald,Classic,16.99,1925-04-10\n9780553386790,A Game of Thrones,George R.R. Martin,Fantasy,18.99,1996-08-01"
+  }
+}
+```
+
+#### Example 4: Multiple sheets with related data
+
+**Prompt:** Generate CSVs for a small company, including employees and their projects.
+
+**Response:**
+```json
+{
+  "csv_data": {
+    "Employees": "EmployeeID,Name,Department,HireDate,Salary\nE001,John Smith,Engineering,2020-03-15,85000\nE002,Sarah Johnson,Marketing,2019-11-01,72000\nE003,Michael Brown,Sales,2021-01-10,78000\nE004,Emily Davis,Human Resources,2018-07-22,68000",
+    "Projects": "ProjectID,Name,StartDate,EndDate,Budget,LeadEmployee\nP001,Website Redesign,2023-01-01,2023-06-30,50000,E001\nP002,Product Launch,2023-03-15,2023-09-30,75000,E002\nP003,Market Research,2023-02-01,2023-05-31,30000,E003\nP004,Employee Training Program,2023-04-01,2023-12-31,25000,E004"
+  }
+}
+```
+
+#### Example 5: Financial data with multiple years
+
+**Prompt:** Generate financial data for a company over three years.
+
+**Response:**
+```json
+{
+  "csv_data": {
+    "FinancialData": "Year,Revenue,Expenses,Profit,GrowthRate\n2020,1000000,800000,200000,\n2021,1200000,950000,250000,25.00\n2022,1500000,1100000,400000,60.00",
+    "QuarterlyBreakdown": "Year,Quarter,Revenue,Expenses,Profit\n2020,Q1,220000,180000,40000\n2020,Q2,240000,190000,50000\n2020,Q3,260000,200000,60000\n2020,Q4,280000,230000,50000\n2021,Q1,280000,220000,60000\n2021,Q2,300000,235000,65000\n2021,Q3,310000,240000,70000\n2021,Q4,310000,255000,55000\n2022,Q1,350000,260000,90000\n2022,Q2,370000,270000,100000\n2022,Q3,390000,280000,110000\n2022,Q4,390000,290000,100000"
+  }
+}
+```
+
+Remember to ensure that the CSV data is properly formatted and does not contain any errors that could cause parsing issues. Each CSV should have a consistent number of columns across all rows, including the header. If a row has fewer values than the number of columns, it will be padded with empty strings. If a row has more values than the number of columns, it will be truncated.
+
+{% if error_message %}
+Please pay special attention to the error message provided and make sure your response addresses the issue to avoid similar errors.
+{% endif %}

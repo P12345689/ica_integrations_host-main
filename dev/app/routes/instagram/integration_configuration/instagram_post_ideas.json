@@ -1,0 +1,169 @@
+{
+    "name": "Create Instagram Post Ideads",
+    "description": "Generate Instagram post ideas",
+    "integrationType": "http",
+    "url": "https://langserve-dev.1fejs9ziiqxg.eu-gb.codeengine.appdomain.cloud/",
+    "parameters": [],
+    "commands": [
+        {
+            "name": "post_to_instagram",
+            "description": "Instagram Post Idea Generator",
+            "inputs": [
+                {
+                    "name": "topics",
+                    "type": "string",
+                    "description": "Please enter the topics for posts",
+                    "isArray": false,
+                    "possibleValues": [],
+                    "defaultValue": "",
+                    "properties": {
+                        "skipButtonEnabled": false,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 1,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "pitch",
+                    "type": "string",
+                    "description": "Please enter a pitch for the posts",
+                    "isArray": false,
+                    "possibleValues": [],
+                    "defaultValue": "",
+                    "properties": {
+                        "skipButtonEnabled": false,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 2,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "guidelines",
+                    "type": "string",
+                    "description": "Which guidelines should I follow ?",
+                    "isArray": false,
+                    "possibleValues": [
+                        {"key":"fun", "value":"fun"},
+                        {"key":"quirky", "value":"quirky"} ,
+                        {"key":"formal", "value":"formal"},
+                        {"key":"serious", "value":"serious"},
+                        {"key":"technical", "value":"technical"}
+                    ],
+                    "defaultValue": "",
+                    "properties": {
+                        "skipButtonEnabled": false,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 3,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "inspiration",
+                    "type": "string",
+                    "description": "Please enter some inspiration",
+                    "isArray": false,
+                    "possibleValues": [],
+                    "defaultValue": "",
+                    "properties": {
+                        "skipButtonEnabled": true,
+                        "skipButtonContent": "Skip",
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 4,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "audience",
+                    "type": "string",
+                    "description": "Who is the audience ?",
+                    "isArray": false,
+                    "possibleValues": [],
+                    "defaultValue": "",
+                    "properties": {
+                        "skipButtonEnabled": false,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 5,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "number",
+                    "type": "string",
+                    "description": "How many posts to generate?",
+                    "isArray": false,
+                    "possibleValues": [
+                        {"key":"1", "value":"1"},
+                        {"key":"3", "value":"3"} ,
+                        {"key":"5", "value":"5"}
+                    ],
+                    "defaultValue": "3",
+                    "properties": {
+                        "skipButtonEnabled": false,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 6,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                }
+            ],
+            "httpMethod": "POST",
+            "httpPath": "instagram_post_ideas/invoke",
+            "httpBody": {
+                "input": {
+                    "topics": "{input.topics}",
+                    "pitch": "{input.pitch}",
+                    "guidelines": "{input.guidelines}",
+                    "inspiration": "{input.inspiration}",
+                    "audience": "{input.audience}",
+                    "number": "{input.number}"
+                }
+            },
+            "httpHeaders": {
+                "Content-Type": "application/json"
+            }
+        }
+    ],
+    "sidekickProperties": {
+        "isGlobal": true,
+        "shareToLibrary": true,
+        "shareToTeam": true,
+        "shareToPublic": true,
+        "roles": "[]",
+        "tags": "[]"
+    }
+}

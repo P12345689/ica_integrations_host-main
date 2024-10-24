@@ -1,0 +1,234 @@
+import { GraphQLSchema } from '@exo/common-base-adapter';
+import { gql } from 'graphql-modules';
+import { scalarsGraphQLSchema } from '@exo/adapter-common-base-types-schema';
+import { languageGraphQLSchema } from '@exo/adapter-common-country-schema';
+
+export const urlInfoGraphQLSchema = new GraphQLSchema({
+  id: __filename,
+  dirname: __dirname,
+  typeDefs: gql`
+    extend type Query {
+      urlInfo("The path to query for any url information available" path: String!): UrlInfoResponse!
+    }
+
+    type UrlInfoResponse {
+      "Unique identifier of the url info response"
+      id: ID!
+      "Returns a redirect if applicable for given URL"
+      redirect: UrlRedirect
+      """
+      Returns a list of translated relative urls
+      and the associated language,
+      for a given SEO token
+      """
+      alternativeLanguageUrls: [UrlAlternativeLanguage!]
+    }
+
+    type UrlRedirect {
+      "Unique identifier of the url redirect generated based on the object."
+      id: ID!
+      "The destination of the redirect"
+      relativeUrl: String!
+      "The HTTP status code for the redirect. Frontend will use this to return the redirect to the browser correctly"
+      httpStatus: PositiveInt!
+    }
+
+    "Translated path and associated language"
+    type UrlAlternativeLanguage {
+      """
+      Unique identifier to help with caching.
+      Generated using SHA-1 hashing algorithm, with the relative URL input and language ID.
+      """
+      id: ID!
+      "Translated URL pathname"
+      relativeUrl: String!
+      "Language associated with current translation of relative URL"
+      language: LangLanguage!
+    }
+  `,
+  imports: [scalarsGraphQLSchema, languageGraphQLSchema],
+});
+
+export default urlInfoGraphQLSchema;
+
+
+type SchTypResult {
+      "Unique identifier for search type result "
+      id: ID!
+      "Attributes found from the search typeahead"
+      attributes: [SchTypAttribute!]
+      "Categories found from the search typeahead"
+      categories: [SchTypCategory!]
+      "Manufacturers found from the search typeahead"
+      manufacturers: [SchTypManufacturer!]
+      "Products found from the search typeahead"
+      products: [SchTypProduct!]
+    }
+
+    "Attributes found from the search typeahead"
+    type SchTypAttribute {
+      "The ID of this attribute"
+      id: ID!
+      "The relative link to the category page where the user should be redirected"
+      categoryUrl: String
+      "The datasource's category identifier to build the search URL"
+      categoryPrivateId: ID
+      "Further details about the attribute values to display"
+      values: [SchTypAttributeValues!]!
+      "Key-value pairs to build the URL query parameters"
+      queryParams: [CmmUrlParameter!]
+      "The requested search keyword(s)"
+      searchedTerm: String
+    }
+
+    "Further details about the attribute values to display"
+    interface SchTypAttributeValues {
+      "Unique identifier for search attributes values generated based on attribute value."
+      id: ID!
+      "The backend system's internal ID for this attribute value."
+      privateId: ID!
+      "The value to display for this Attribute value"
+      name: String!
+    }
+
+    "Attribute values within the values array of an attribute response"
+    type SchTypAttributeAttribute implements SchTypAttributeValues {
+      "Unique identifier for search attribute's attributes generated based on object"
+      id: ID!
+      "The unique identifier for this Attribute value from datasource"
+      privateId: ID!
+      "The label for the name of the attribute, e.g. for 'Voltage: 12v' the label is 'Voltage'"
+      label: String!
+      "The name of this attribute, e.g. for 'Voltage: 12v' the name is '12v'"
+      name: String!
+    }
+
+    "Manufacturer values within the values array of an attribute response"
+    type SchTypAttributeManufacturer implements SchTypAttributeValues {
+      "Unique identifier for search attributes type manufacturer generated based on the object"
+      id: ID!
+      "The backend system's internal ID for this Attribute value"
+      privateId: ID!
+      "The name of the manufacturer"
+      name: String!
+    }
+
+    "Category values within the values array of an attribute response"
+    type SchTypAttributeCategory implements SchTypAttributeValues {
+      "Unique identifier for search attributes type category generated based on the object"
+      id: ID!
+      "The backend system's internal ID for this Attribute value"
+      privateId: ID!
+      "The name of the category e.g. 'Capacitors'"
+      name: String!
+    }
+
+    "Categories found from the search typeahead"
+    type SchTypCategory {
+      "Unique identifier for search category generated based on the object"
+      id: ID!
+      "The backend system's internal ID for this category"
+      privateId: ID!
+      "The relative link to the category page where the user should be redirected"
+      categoryUrl: String
+      "The name of this category"
+      name: String!
+      "The name of the this category's parent"
+      parentCategory: String!
+    }
+
+    "Manufacturers found from the search typeahead"
+    type SchTypManufacturer {
+      "The ID of this manufacturer"
+      id: ID!
+      "The relative link to the manufacturer page where the user should be redirected"
+      manufacturerUrl: String
+      "The relative link to the category page where the user should be redirected"
+      categoryUrl: String
+      "The datasource's category identifier to build the search URL"
+      categoryPrivateId: ID
+      "Further details about the manufacturer values to display"
+      values: [SchTypManufacturerValues!]!
+      "Key-value pairs to build the URL query parameters"
+      queryParams: [CmmUrlParameter!]
+    }
+
+    "Further details about the manufacturer values to display"
+    interface SchTypManufacturerValues {
+      "Unique identifier for search type manufacturer value generated based on the object"
+      id: ID!
+      "The backend system's internal ID for this Manufacturer value"
+      privateId: ID!
+      "The value to display for this Manufacturer value"
+      name: String!
+    }
+
+    "Manufacturer values within the values array of a manufacturer response"
+    type SchTypManufacturerManufacturer implements SchTypManufacturerValues {
+      "Unique identifier for search type manufacturer generated based on the object"
+      id: ID!
+      "The backend system's internal ID for this Manufacturer value"
+      privateId: ID!
+      "The name of this manufacturer, e.g. 'Panasonic'"
+      name: String!
+    }
+
+    "Category values within the values array of a manufacturer response"
+    type SchTypManufacturerCategory implements SchTypManufacturerValues {
+      "Unique identifier for search type manufacturer category value generated based on the object"
+      id: ID!
+      "The backend system's internal ID for this Manufacturer value"
+      privateId: ID!
+      "The name of the category"
+      name: String!
+    }
+
+    "Further details about the product values to display"
+    union SchTypProductValues =
+        SchTypSingleProduct
+      | SchTypMultipleProductsSingleCategory
+      | SchTypMultipleProductsMultipleCategories
+
+    "Products found from the search typeahead"
+    type SchTypProduct {
+      "The backend system's internal ID for the product detail from search"
+      privateId: ID!
+      "Unique identifier for product search generated based on the object"
+      id: ID!
+      "Relative URL to the product display page"
+      pdpUrl: String
+      "The descriptive title of this product"
+      name: String!
+      "The relative link to the product's thumbnail"
+      thumbnail: String
+      "Further details about the product values to display"
+      values: SchTypProductValues!
+    }
+
+    "The product values if a single product is returned"
+    type SchTypSingleProduct {
+      "A uniquely generated ID based on the other field values of this type"
+      id: ID!
+      "The description of this product e.g. first few key specs"
+      description: String!
+    }
+
+    "The product values for a multiple products in a single category scenario"
+    type SchTypMultipleProductsSingleCategory {
+      "A uniquely generated ID based on the other field values of this type"
+      id: ID!
+      "The number of products found in this category"
+      productsCount: Int!
+      "The category these products are in"
+      category: String!
+    }
+
+    "The product values for a multiple products in multiple categories scenario"
+    type SchTypMultipleProductsMultipleCategories {
+      "A uniquely generated ID based on the other field values of this type"
+      id: ID!
+      "The number of products found in these categories"
+      productsCount: Int!
+      "The number of categories found with this product"
+      categoriesCount: Int!
+    }

@@ -1,0 +1,111 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-4.3.1
+
+# NOTE: If you generated this yaml from an unprivileged and rootless podman container on an SELinux
+# enabled system, check the podman generate kube man page for steps to follow to ensure that your pod/container
+# has the right permissions to access the volumes added.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-05-15T05:16:08Z"
+  labels:
+    app: icaintegrationshost-pod
+  name: icaintegrationshost-pod
+spec:
+  ports:
+  - name: "8080"
+    nodePort: 31105
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: icaintegrationshost-pod
+  type: NodePort
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    io.kubernetes.cri-o.TTY/icaintegrationshost: "false"
+    io.podman.annotations.autoremove/icaintegrationshost: "FALSE"
+    io.podman.annotations.init/icaintegrationshost: "FALSE"
+    io.podman.annotations.privileged/icaintegrationshost: "FALSE"
+    io.podman.annotations.publish-all/icaintegrationshost: "FALSE"
+    org.opencontainers.image.base.digest/icaintegrationshost: sha256:9df4c00182e33b00bb6d2f135d8889ec3e9535049ca76d08ac50ac51
+    org.opencontainers.image.base.name/icaintegrationshost: registry.access.redhat.com/ubi9/ubi:9.4-947.1714667021
+  creationTimestamp: "2024-05-15T05:16:08Z"
+  labels:
+    app: icaintegrationshost-pod
+  name: icaintegrationshost-pod
+spec:
+  automountServiceAccountToken: false
+  containers:
+  - env:
+    - name: ASSISTANTS_RETRY_BASE_DELAY
+      value: "10"
+    - name: ASSISTANTS_CACHE_DURATION_HOURS
+      value: "24"
+    - name: ASSISTANTS_APP_ID
+      value: MY_APP_ID
+    - name: GUNICORN_WORKERS
+      value: "3"
+    - name: ASSISTANTS_ENABLE_RICH_PRINT
+      value: "1"
+    - name: ASSISTANTS_DEFAULT_MODEL_ID_OR_NAME
+      value: Llama3.1 70b Instruct
+    - name: ASSISTANTS_RETRY_MAX_DELAY
+      value: "100"
+    - name: ASSISTANTS_TABLEFMT
+      value: simple
+    - name: ASSISTANTS_RETRY_ATTEMPTS
+      value: "6"
+    - name: ASSISTANTS_DEFAULT_FORMAT
+      value: table
+    - name: ASSISTANTS_BASE_URL
+      value: https://servicesessentials.ibm.com/apis/v1/sidekick-ai
+    - name: ASSISTANTS_API_KEY
+      value: MY_API_KEY
+    - name: ASSISTANTS_CACHE_DIRECTORY
+      value: /tmp/cache
+    - name: ASSISTANTS_DEBUG
+      value: "0"
+    - name: ASSISTANTS_ACCESS_TOKEN
+      value: MY_ACCESS_TOKEN
+    image: localhost/ica/ica_integrations_host:latest
+    name: icaintegrationshost
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 30
+      periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    ports:
+    - containerPort: 8080
+      hostPort: 8080
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+    securityContext:
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_NET_RAW
+        - CAP_AUDIT_WRITE
+    volumeMounts:
+    - mountPath: /app/public
+      name: home-cmihai-production-ica_integrations_host-public-host-0
+  enableServiceLinks: false
+  volumes:
+  - hostPath:
+      path: /home/cmihai/production/ica_integrations_host/public
+      type: Directory
+    name: home-cmihai-production-ica_integrations_host-public-host-0

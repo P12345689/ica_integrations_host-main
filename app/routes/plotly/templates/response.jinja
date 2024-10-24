@@ -1,0 +1,16 @@
+A Plotly chart has been generated based on your request.
+
+You can access the {{ format }} chart at the following URL:
+"{{ chart_url }}"
+
+The chart was generated using the following data:
+
+```json
+{{ chart_data }}
+```
+
+{% if format == "HTML" %}
+This interactive chart allows you to hover over data points, zoom in/out, and pan across the chart.
+{% else %}
+This is a static PNG image of the chart.
+{% endif %}

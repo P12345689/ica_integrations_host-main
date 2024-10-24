@@ -1,0 +1,25 @@
+Query Results:
+
+{% if result.matching_results > 0 %}
+Total matching results: {{ result.matching_results }}
+
+Top {{ result.results|length }} results:
+{% for doc in result.results %}
+{{ loop.index }}. {{ doc.title|default("Untitled Document") }}
+   {{ doc.text|truncate(200) }}
+
+{% endfor %}
+{% else %}
+No matching results found.
+{% endif %}
+
+{% if result.suggested_query %}
+Suggested query: {{ result.suggested_query }}
+{% endif %}
+
+{% if result.passages %}
+Relevant passages:
+{% for passage in result.passages %}
+- {{ passage.passage_text|truncate(150) }}
+{% endfor %}
+{% endif %}

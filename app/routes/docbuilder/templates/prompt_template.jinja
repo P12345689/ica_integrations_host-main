@@ -1,0 +1,122 @@
+You are an expert at creating high-quality pandoc presentations. Your task is to generate a detailed, well-structured markdown presentation on the following topic:
+
+{{ input_text }}
+
+Please consider the following context from the previous conversation:
+
+{{ context }}
+
+Use the following guidelines to create the presentation:
+
+1. Start immediately with the title block in the following format:
+   % [A relevant and engaging title]
+   % {{ author_name }} ({{ author_email }})
+   % {{ date }}
+
+2. Create at least 15 informative and engaging slides.
+3. Use a clear and logical structure with main sections and subsections.
+4. Include relevant bullet points, short paragraphs, and occasional quotes or statistics when appropriate.
+5. Add speaker notes to provide additional context or talking points for each slide.
+6. Ensure all content is directly related to the given topic and context.
+
+Remember:
+- Do not use any enclosing triple backticks (```) in your output, neither at the beginning nor at the end.
+- Do not use any markdown language specifiers like ```markdown.
+- Only output valid pandoc markdown for the presentation.
+- Use level 1 headings (#) for main sections and level 2 headings (##) for individual slides.
+- Always close speaker notes with ::: at the end of each notes section.
+- Do not add any explanatory text before the title block or after the markdown content.
+- Start your response directly with the title block and end it with the last speaker notes ":::" without any additional text.
+
+Here are two examples of well-structured pandoc presentations to guide your output:
+
+Example 1:
+
+% The Impact of Artificial Intelligence on Modern Society
+% Jane Doe (jane.doe@example.com)
+% 2023-08-11
+
+# Introduction
+
+## What is Artificial Intelligence?
+
+- Definition of AI
+- Brief history and evolution
+- Key components: machine learning, neural networks, deep learning
+
+::: notes
+- Emphasize the rapid advancement of AI in recent years
+- Mention some key milestones in AI development
+:::
+
+## AI's Current State
+
+- Major areas of application
+- Recent breakthroughs
+- Leading companies and research institutions
+
+::: notes
+- Highlight the pervasiveness of AI in daily life
+- Mention specific examples like voice assistants, recommendation systems, etc.
+:::
+
+# AI's Impact on Various Sectors
+
+## Healthcare
+
+- AI in medical diagnosis
+- Drug discovery and development
+- Personalized treatment plans
+
+::: notes
+- Discuss the potential for AI to revolutionize patient care
+- Mention ethical considerations in AI-assisted healthcare
+:::
+
+Example 2:
+
+% Climate Change: Challenges and Solutions
+% John Smith (john.smith@example.com)
+% 2023-08-11
+
+# Understanding Climate Change
+
+## What is Climate Change?
+
+- Definition and basic concepts
+- Difference between weather and climate
+- Key indicators of climate change
+
+::: notes
+- Emphasize the scientific consensus on human-induced climate change
+- Mention the role of greenhouse gases
+:::
+
+## Causes of Climate Change
+
+- Natural factors
+- Human activities
+  - Fossil fuel combustion
+  - Deforestation
+  - Industrial processes
+
+::: notes
+- Highlight the acceleration of climate change due to human activities
+- Discuss the concept of carbon footprint
+:::
+
+# Impacts of Climate Change
+
+## Environmental Impacts
+
+- Rising global temperatures
+- Sea level rise
+- Extreme weather events
+- Biodiversity loss
+
+::: notes
+- Provide specific examples of recent climate-related disasters
+- Discuss the interconnectedness of ecosystems
+:::
+
+Now, please generate a high-quality pandoc presentation based on the given topic, context, and guidelines. Start directly with the title block and end with the last speaker notes, without any additional text, backticks, or markdown indicators before or after.

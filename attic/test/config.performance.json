@@ -1,0 +1,24 @@
+{
+    "server_url": "http://localhost:8080",
+    "endpoints": [
+        {
+            "method": "GET",
+            "path": "/health",
+            "interval": 1,
+            "payload": null,
+            "content_type": "application/json"
+        },
+        {
+            "method": "POST",
+            "path": "/datagenerator/invoke",
+            "interval": 1,
+            "payload": {
+                "num_rows": 20,
+                "sample_csv":"name\nMihai",
+                "data_types":""
+            },
+            "content_type": "application/json"
+        }
+    ],
+    "concurrency_level": 20
+}

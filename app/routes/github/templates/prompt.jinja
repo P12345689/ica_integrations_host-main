@@ -1,0 +1,29 @@
+Please analyze the following GitHub-related query and provide a response:
+
+Query: {{ query }}
+Repository: {{ repo_url }}
+
+If no Repository is defined, extract it from the Query. Only provide the link.
+
+If the query requires a GitHub operation, respond with a JSON object that includes the following fields:
+- action: The GitHub action to perform from the list of supported actions (e.g., 'list_issues', 'get_issue', 'list_prs', 'get_pr', 'list_releases', 'get_file')
+- params: A dictionary of parameters required for the action
+- analysis: Your analysis or summary of the query and proposed action
+
+If the query doesn't require a specific GitHub operation, respond with a JSON object that includes:
+- analysis: Your analysis, summary, or response to the query
+
+Your response should be a valid JSON object only, without any additional text or explanation. The JSON object should be directly parseable by Python's json.loads() function.
+
+Do not generate the typical ```json or ``` enclosing headers, you're NOT generating markdown, but actual valid JSON and ONLY JSON.
+
+Example of a valid response requiring a GitHub action:
+{"repo_url": "http://...", "action": "get_issue", "params": {"issue_number": 42}, "analysis": "The query is requesting information about a specific issue. I'll retrieve issue #42 from the repository."}
+{"repo_url": "http://...", "action": "get_pr", "params": {"pr_number": 43}, "analysis": "The query is requesting information about a Pull Request (PR). I'll retrieve PR #43 from the repository."}
+{"repo_url": "http://...", "action": "get_file", "params": {"path": "README.md"}, "analysis": "The query is requesting information about a specific file (README.md). I'll retrieve README.md from the repository."}
+
+Example of a valid response not requiring a GitHub action:
+{"analysis": "The query is asking for general information about GitHub best practices. Here's a summary of some key best practices for GitHub usage..."}
+
+Example of a response when more information is required from the user, for example, if the repo URL is missing from the request completely (Query and Repository):
+{"analysis": "You did not provide a valid GitHub URL, please provide a GitHub URL in your request."}

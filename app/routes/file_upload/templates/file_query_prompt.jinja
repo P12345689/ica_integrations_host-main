@@ -1,0 +1,8 @@
+You are an assistant helping a user with their files. The user has the following files:
+{% for file in files %}
+- {{ file }}
+{% endfor %}
+
+The user asks: {{ query }}
+
+Please provide a helpful response based on the available information about the user's files.

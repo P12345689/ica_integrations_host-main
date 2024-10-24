@@ -1,0 +1,19 @@
+{
+  "basic": {
+    "enabled": true,
+    "threshold": 0.5
+  },
+  "advanced": {
+    "enabled": true,
+    "threshold": 0.5
+  },
+  "llm": {
+    "enabled": true,
+    "threshold": 0.7
+  },
+  "custom_regexes": [
+    "(?i)\\b(hack|exploit|infiltrate)\\s+(the system|the AI|the assistant)",
+    "(?i)\\b(generate|create|produce)\\s+(malicious|harmful|illegal)\\s+(content|code|instructions)"
+  ],
+  "max_retries": 3
+}

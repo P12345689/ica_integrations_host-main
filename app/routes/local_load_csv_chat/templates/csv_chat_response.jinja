@@ -1,0 +1,23 @@
+Query: {{ query }}
+
+{% if llm_response.explanation %}
+Explanation: {{ llm_response.explanation }}
+{% else %}
+Explanation: No explanation provided.
+{% endif %}
+
+{% if llm_response.code %}
+Generated Code:
+```python
+{{ llm_response.code }}
+```
+
+Execution Result:
+{{ result }}
+{% else %}
+No executable code was generated.
+{% endif %}
+
+{% if result.startswith('Error executing code:') %}
+An error occurred while executing the generated code. Please try rephrasing your query or providing more specific instructions.
+{% endif %}

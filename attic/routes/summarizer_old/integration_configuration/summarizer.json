@@ -1,0 +1,126 @@
+{
+    "name": "Summarize",
+    "description": "Summarizes Text",
+    "integrationType": "http",
+    "url": "https://langserve-dev.1fejs9ziiqxg.eu-gb.codeengine.appdomain.cloud/",
+    "parameters": [],
+    "commands": [
+        {
+            "name": "summarize_text",
+            "description": "Summarizes the text in a number of sentences",
+            "inputs": [
+                {
+                    "name": "text",
+                    "type": "string",
+                    "description": "Please enter the text to summarize",
+                    "isArray": false,
+                    "possibleValues": [],
+                    "defaultValue": "",
+                    "properties": {
+                        "skipButtonEnabled": false,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 1,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "number",
+                    "type": "string",
+                    "description": "How many sentences/bulletpoints?",
+                    "isArray": false,
+                    "possibleValues": [1,3,5],
+                    "defaultValue": "5",
+                    "properties": {
+                        "skipButtonEnabled": true,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 2,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "summary_type",
+                    "type": "string",
+                    "description": "bulletpoints or sentences?",
+                    "isArray": false,
+                    "possibleValues": [
+                        {"key":"bulletpoints", "value":"bulletpoints"},
+                        {"key":"sentences", "value":"sentences"}
+                    ],
+                    "defaultValue": "bulletpoints",
+                    "properties": {
+                        "skipButtonEnabled": true,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 3,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                },
+                {
+                    "name": "style",
+                    "type": "string",
+                    "description": "Which style should i summarize in?",
+                    "isArray": false,
+                    "possibleValues": [
+                        {"key":"fun", "value":"fun"},
+                        {"key":"quirky", "value":"quirky"},
+                        {"key":"formal", "value":"formal"},
+                        {"key":"serious", "value":"serious"},
+                        {"key":"business", "value":"business"},
+                        {"key":"technical", "value":"technical"}
+                    ],
+                    "defaultValue": "business",
+                    "properties": {
+                        "skipButtonEnabled": false,
+                        "stopButtonEnabled": false,
+                        "helperTextEnabled": false,
+                        "tooltipEnabled": false,
+                        "customConfigEnabled": true,
+                        "customConfigContent": {
+                            "order": 4,
+                            "limit": 1,
+                            "type": "input"
+                        }
+                    }
+                }
+            ],
+            "httpMethod": "POST",
+            "httpPath": "summarize_text/invoke",
+            "httpBody": {
+                "input": {
+                    "number": "{input.number}",
+                    "text": "{input.text}",
+                    "style": "{input.style}",
+                    "summary_type": "{input.summary_type}"
+                }
+            },
+            "httpHeaders": {
+                "Content-Type": "application/json"
+            }
+        }
+    ],
+    "sidekickProperties": {
+        "isGlobal": true,
+        "shareToLibrary": true,
+        "shareToTeam": true,
+        "shareToPublic": true,
+        "roles": "[]",
+        "tags": "[]"
+    }
+}

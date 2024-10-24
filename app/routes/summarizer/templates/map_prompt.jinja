@@ -1,0 +1,12 @@
+Write a {{ summary_length }} summary of this chunk of text that includes the main points and any important details.
+{% if summary_type == "bullets" %}
+Return your response in bullet points.
+{% else %}
+Return your response in paragraphs.
+{% endif %}
+{% if output_format == "markdown" %}
+Use Markdown formatting.
+{% endif %}
+Use a {{ style }} style.
+
+{text}

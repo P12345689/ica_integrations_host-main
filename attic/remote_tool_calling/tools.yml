@@ -1,0 +1,630 @@
+---
+metadata:
+  name: IBM Consulting Assistants Dynamic Tool Invocation
+  version: 1.2.0
+  author: Mihai Criveti
+  description: >
+    Configuration file for testing various integrations of IBM Consulting Assistants.
+    This file defines the endpoints, payloads, and expected behaviors for each integration,
+    serving as both agentic tool invocation, a test specification and a form of living documentation.
+
+    Used by agents for remote tool invocation.
+  last_updated: '2024-08-04'
+
+server_url: http://localhost:8080
+concurrency_level: 3
+
+apis:
+  - name: health_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: health_check
+        path: /health
+        method: GET
+        description: >
+          Performs a health check on the server. This endpoint is crucial for monitoring the overall status of the system.
+          It doesn't require any payload and should return quickly, making it ideal for frequent polling.
+          A successful response indicates that the server is up and running correctly.
+        parameters: []
+        response:
+          type: object
+          properties:
+            status:
+              type: string
+            message:
+              type: string
+        usage_notes: >
+          This endpoint can be used in monitoring systems to trigger alerts if the server becomes unresponsive.
+        examples:
+          - description: Successful health check
+            payload: null
+            response:
+              status: ok
+          - description: Failed health check
+            payload: null
+            response:
+              status: error
+              message: Database connection failed
+        comments: >
+          Consider implementing more detailed health checks for critical system components.
+
+  - name: assistant_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: assistant_builder
+        path: /assistant_builder/invoke
+        method: POST
+        description: >
+          Generates an AI assistant based on the provided description. This endpoint leverages
+          natural language processing to create custom assistants tailored to specific tasks.
+          It interprets the input description and generates a detailed assistant definition,
+          including task descriptions, example responses, and usage instructions.
+        parameters:
+          - name: input
+            type: string
+            description: The description of the assistant to be created
+            required: true
+        response:
+          type: object
+          properties:
+            status:
+              type: string
+            invocationId:
+              type: string
+            response:
+              type: array
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+        usage_notes: >
+          The input description should be clear and specific. More detailed inputs generally result in
+          more accurate and useful assistants. The generated assistant can be further refined through iteration.
+        examples:
+          - description: Create a user story assistant
+            payload:
+              input: Assistant to write user stories
+            response:
+              status: success
+              invocationId: 6c5a6e4e-62a2-46ef-bcc8-dd4540ada44b
+              response:
+                - message: >
+                    You are an assistant that performs the following task:
+
+                    Task: Write User Stories
+
+                    Description: As an assistant, write clear, concise, and actionable user stories
+                    that capture the requirements and needs of end-users, stakeholders, or customers,
+                    ensuring they are aligned with project goals and objectives.
+
+                    ...
+                  type: text
+          - description: Create a data analysis assistant
+            payload:
+              input: Assistant for data analysis
+            response:
+              status: success
+              invocationId: 7d6b7f5f-73a3-57fg-9dd9-ee6651beb55c
+              response:
+                - message: >
+                    You are an assistant that performs the following task:
+
+                    Task: Data Analysis
+
+                    Description: As a data analysis assistant, your role is to help users interpret
+                    complex datasets, perform statistical analyses, and derive meaningful insights
+                    from various types of data...
+                  type: text
+        comments: >
+          Consider adding options for customizing the assistant's personality or knowledge base.
+
+      - name: assistant_executor
+        path: /system/assistant_executor/retrievers/assistant/invoke
+        method: POST
+        description: >
+          Executes a specific assistant with the given prompt. This endpoint allows interaction
+          with pre-built assistants, providing a way to leverage their specialized knowledge or capabilities.
+          The assistant_id specifies which assistant to use, while the prompt is the user's input or question for the assistant.
+        parameters:
+          - name: assistant_id
+            type: string
+            description: The ID of the assistant to execute
+            required: true
+          - name: prompt
+            type: string
+            description: The user's input or question for the assistant
+            required: true
+        response:
+          type: object
+          properties:
+            status:
+              type: string
+            invocationId:
+              type: string
+            response:
+              type: array
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+        usage_notes: >
+          Ensure the ASSISTANT_ID environment variable is set to a valid assistant ID before using this endpoint.
+          The prompt should be relevant to the assistant's domain of expertise for best results.
+        examples:
+          - description: Execute assistant for app concept
+            payload:
+              assistant_id: ${ASSISTANT_ID}
+              prompt: app to open car trunk with face
+            response:
+              status: success
+              invocationId: 8e7c8g6g-84b4-68gh-0ee0-ff7762cfc66d
+              response:
+                - message: >
+                    Here's a high-level concept for an app that opens a car trunk using facial recognition:
+
+                    1. User Authentication:
+                       - The app starts with a secure login process.
+                       - Users register their face using the phone's camera.
+
+                    2. Connection to Car:
+                       - The app pairs with the car's onboard computer system via Bluetooth or Wi-Fi.
+
+                    ...
+                  type: text
+          - description: Execute assistant for Python function
+            payload:
+              assistant_id: ${ASSISTANT_ID}
+              prompt: Write a Python function to calculate Fibonacci sequence
+            response:
+              status: success
+              invocationId: 9f8d9h7h-95c5-79hi-1ff1-gg8873dgd77e
+              response:
+                - message: >
+                    Here's a Python function to calculate the Fibonacci sequence:
+
+                    ```python
+                    def fibonacci(n):
+                        if n <= 0:
+                            return []
+                        elif n == 1:
+                            return [0]
+                        elif n == 2:
+                            return [0, 1]
+
+                        fib = [0, 1]
+                        for i in range(2, n):
+                            fib.append(fib[i-1] + fib[i-2])
+
+                        return fib
+
+                    # Example usage:
+                    print(fibonacci(10))  # Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+                    ```
+
+                    ...
+                  type: text
+        comments: >
+          Consider implementing a caching mechanism for frequently used assistants to improve response times.
+
+  - name: docs_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: experience_docs_ask
+        path: /experience/docs/ask_docs/invoke
+        method: POST
+        description: >
+          This endpoint enables asking questions about documents in selected collections.
+          It uses natural language processing to interpret the query and search through the
+          specified document collections for relevant information. This is particularly useful
+          for extracting insights from large document sets or for creating interactive documentation systems.
+        parameters:
+          - name: collection_ids
+            type: array
+            items:
+              type: string
+            description: Array of collection IDs to search within
+            required: true
+          - name: query
+            type: string
+            description: The question or query about the documents
+            required: true
+          - name: refresh
+            type: boolean
+            description: Whether to force a refresh of the document cache
+            required: false
+            default: false
+        response:
+          type: object
+          properties:
+            status:
+              type: string
+            invocationId:
+              type: string
+            response:
+              type: array
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+        usage_notes: >
+          The COLLECTION_ID should correspond to a valid document collection. Multiple collection IDs
+          can be provided to search across various document sets. Setting 'refresh' to true will force
+          a refresh of the document cache, which may be slower but ensures the most up-to-date information.
+        examples:
+          - description: Query about API endpoint
+            payload:
+              collection_ids:
+                - ${COLLECTION_ID}
+              query: What is the API endpoint used to retrieve document collections?
+              refresh: false
+            response:
+              status: success
+              invocationId: 0g9e0i8i-06d6-80ij-2gg2-hh9984ehe88f
+              response:
+                - message: >
+                    The API endpoint used to retrieve document collections is:
+
+                    `/system/docs/retrievers/get_collections/invoke`
+
+                    This endpoint is a POST request that returns a list of available document collections.
+                    It accepts an optional 'refresh' parameter in the payload, which when set to true,
+                    will force a refresh of the collection cache.
+                  type: text
+          - description: Summarize integration features
+            payload:
+              collection_ids:
+                - ${COLLECTION_ID}
+              query: Summarize the key features of the PII Masker integration
+              refresh: true
+            response:
+              status: success
+              invocationId: 1h0f1j9j-17e7-91jk-3hh3-ii0095fif99g
+              response:
+                - message: >
+                    The PII Masker integration offers the following key features:
+
+                    1. Multiple PII processing options: mask, delete, encrypt, decrypt, or replace with fake data.
+                    2. Support for numerous PII types including credit card numbers, names, email addresses, phone numbers, SSNs, and more.
+                    3. Custom regex support for user-defined PII patterns.
+                    4. Both system-level and experience-level API endpoints.
+                    5. Robust error handling and logging.
+                    6. Concurrent processing for improved performance.
+                    7. Customizable encryption/decryption keys for enhanced security.
+
+                    ...
+                  type: text
+        comments: >
+          Consider implementing a feedback mechanism to improve search results over time based on user interactions.
+
+  - name: github_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: github_integration
+        path: /system/github/invoke
+        method: POST
+        description: >
+          This endpoint provides a comprehensive interface to interact with GitHub repositories.
+          It supports various actions such as listing issues, creating new issues, managing pull requests, and more.
+          This integration is crucial for automation of GitHub-related tasks and incorporating
+          version control workflows into larger systems.
+        parameters:
+          - name: repo_url
+            type: string
+            description: The URL of the GitHub repository
+            required: true
+          - name: action
+            type: string
+            description: The GitHub action to perform (e.g., list_issues, create_issue)
+            required: true
+          - name: params
+            type: object
+            description: Action-specific parameters
+            required: false
+          - name: github_token
+            type: string
+            description: GitHub authentication token
+            required: true
+        response:
+          type: object
+          properties:
+            status:
+              type: string
+            invocationId:
+              type: string
+            response:
+              type: array
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+        usage_notes: >
+          Ensure the GITHUB_TOKEN has the necessary permissions for the actions you intend to perform.
+          Different actions may require different scopes. The 'params' field should be populated
+          with action-specific parameters as needed.
+        examples:
+          - description: List GitHub issues
+            payload:
+              repo_url: https://github.ibm.com/destiny/ica_integrations_host
+              action: list_issues
+              params: {}
+              github_token: ${GITHUB_TOKEN}
+            response:
+              status: success
+              invocationId: 2i1g2k0k-28f8-02kl-4ii4-jj1106gjg00h
+              response:
+                - message: >
+                    Issues retrieved successfully. Here are the first 3 issues:
+
+                    1. Issue #42: 'Update documentation for new features'
+                       Status: Open
+                       Assignee: john.doe@example.com
+
+                    2. Issue #41: 'Fix bug in PII Masker module'
+                       Status: In Progress
+                       Assignee: jane.smith@example.com
+
+                    3. Issue #40: 'Implement rate limiting for API endpoints'
+                       Status: Closed
+                       Assignee: bob.johnson@example.com
+
+                    ...
+                  type: text
+          - description: Create a new GitHub issue
+            payload:
+              repo_url: https://github.ibm.com/destiny/ica_integrations_host
+              action: create_issue
+              params:
+                title: Implement new feature X
+                body: >
+                  We need to implement feature X to improve user experience.
+                  This feature should include...
+                labels:
+                  - enhancement
+                  - priority-high
+              github_token: ${GITHUB_TOKEN}
+            response:
+              status: success
+              invocationId: 3j2h3l1l-39g9-13lm-5jj5-kk2217hkh11i
+              response:
+                - message: >
+                    Issue created successfully.
+
+                    Issue Details:
+                    - Number: #43
+                    - Title: 'Implement new feature X'
+                    - Status: Open
+                    - Labels: enhancement, priority-high
+                    - URL: https://github.ibm.com/destiny/ica_integrations_host/issues/43
+                  type: text
+        comments: >
+          Consider implementing rate limiting to prevent abuse of the GitHub API. Also, add support for pagination for actions that return large datasets.
+
+  - name: wikipedia_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: search_wikipedia
+        path: /system/wikipedia/retrievers/search/invoke
+        method: POST
+        description: Search Wikipedia for information on a topic
+        parameters:
+          - name: search_string
+            type: string
+            description: The search query
+            required: true
+          - name: results_type
+            type: string
+            description: Type of results (summary or full)
+            required: false
+            default: summary
+        response:
+          type: object
+          properties:
+            title:
+              type: string
+            content:
+              type: string
+        usage_notes: >
+          Use 'summary' for brief results and 'full' for more detailed information.
+          The search query should be as specific as possible for best results.
+        examples:
+          - description: Search for a summary about Python programming
+            payload:
+              search_string: Python programming
+              results_type: summary
+            response:
+              title: Python (programming language)
+              content: "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation. Python is dynamically-typed and garbage-collected. It supports multiple programming paradigms, including structured, object-oriented and functional programming. It is often described as a 'batteries included' language due to its comprehensive standard library."
+          - description: Get full information about artificial intelligence
+            payload:
+              search_string: Artificial Intelligence
+              results_type: full
+            response:
+              title: Artificial Intelligence
+              content: "Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to natural intelligence displayed by animals including humans. AI research has been defined as the field of study of intelligent agents, which refers to any system that perceives its environment and takes actions that maximize its chance of achieving its goals..."
+        comments: >
+          Consider implementing caching mechanisms to improve response times for frequently searched topics.
+          Also, add support for language selection to allow searching in different Wikipedia languages.
+
+  - name: jira_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: create_jira_issue
+        path: /system/jira/retrievers/create_issue/invoke
+        method: POST
+        description: Creates a new issue in JIRA
+        parameters:
+          - name: project_key
+            type: string
+            description: The project key in JIRA
+            required: true
+          - name: summary
+            type: string
+            description: The issue summary
+            required: true
+          - name: description
+            type: string
+            description: The issue description
+            required: true
+          - name: issue_type
+            type: string
+            description: The type of the issue
+            required: true
+        response:
+          type: object
+          properties:
+            issue_id:
+              type: string
+            issue_key:
+              type: string
+        usage_notes: >
+          Ensure that the project_key is valid and that you have the necessary permissions to create issues in the specified project.
+          The issue_type should match one of the available issue types in your JIRA project.
+        examples:
+          - description: Create a new task in JIRA
+            payload:
+              project_key: PROJ
+              summary: Implement new feature X
+              description: We need to implement feature X to improve user experience. This feature should include...
+              issue_type: Task
+            response:
+              issue_id: "10001"
+              issue_key: PROJ-123
+        comments: >
+          Consider adding support for custom fields and attachments in issue creation.
+          Implement error handling for cases where the project key is invalid or the user lacks necessary permissions.
+
+  - name: pii_masker_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: process_pii
+        path: /system/pii_masker/retrievers/process_pii/invoke
+        method: POST
+        description: Processes text to handle Personally Identifiable Information (PII)
+        parameters:
+          - name: text
+            type: string
+            description: The text to process for PII
+            required: true
+          - name: mask_type
+            type: string
+            description: The type of PII processing to perform (delete, mask, encrypt, decrypt, fake)
+            required: true
+          - name: pii_types
+            type: array
+            items:
+              type: string
+            description: Types of PII to process (e.g., credit_card, ssn, email)
+            required: true
+        response:
+          type: string
+          description: The processed text with PII handled according to the specified mask_type
+        usage_notes: >
+          Choose the appropriate 'mask_type' based on your specific privacy requirements.
+          The 'pii_types' array should list all types of PII you expect in the text.
+          For 'encrypt' and 'decrypt' operations, ensure you have a secure method for managing encryption keys.
+        examples:
+          - description: Delete PII from text
+            payload:
+              text: "My credit card is 1234-5678-9012-3456, my SSN is 123-45-6789, and my email is john.doe@example.com."
+              mask_type: delete
+              pii_types: ["credit_card", "ssn", "email"]
+            response: "My credit card is , my SSN is , and my email is ."
+          - description: Mask PII in text
+            payload:
+              text: "My name is John Doe, born on 1990-05-15. I live at 123 Main St, Anytown, TX 12345."
+              mask_type: mask
+              pii_types: ["name", "date_of_birth", "address"]
+            response: "My name is <NAME>, born on <DATE_OF_BIRTH>. I live at <ADDRESS>."
+        comments: >
+          Consider implementing a custom regex feature to allow users to define their own PII patterns.
+          Add support for bulk processing of large text datasets for improved efficiency.
+
+  - name: weather_service
+    base_url: http://localhost:8080
+    default_headers:
+      Content-Type: application/json
+      Integrations-API-Key: ${INTEGRATIONS_API_KEY}
+    endpoints:
+      - name: get_current_weather
+        path: /system/weather/retrievers/current/invoke
+        method: POST
+        description: Get the current weather in a given location
+        parameters:
+          - name: location
+            type: string
+            description: The city and state, e.g. San Francisco, CA
+            required: true
+          - name: unit
+            type: string
+            description: The unit of temperature to use (celsius or fahrenheit)
+            required: false
+            default: fahrenheit
+        response:
+          type: object
+          properties:
+            temperature:
+              type: number
+            conditions:
+              type: string
+            humidity:
+              type: number
+            wind_speed:
+              type: number
+        usage_notes: >
+          Provide the location in the format "City, State" for best results.
+          You can specify 'celsius' or 'fahrenheit' for the unit parameter to get temperature in your preferred scale.
+        examples:
+          - description: Get weather for New York in Celsius
+            payload:
+              location: "New York, NY"
+              unit: celsius
+            response:
+              temperature: 22.5
+              conditions: "Partly cloudy"
+              humidity: 65
+              wind_speed: 10.2
+          - description: Get weather for Los Angeles in Fahrenheit
+            payload:
+              location: "Los Angeles, CA"
+              unit: fahrenheit
+            response:
+              temperature: 75.2
+              conditions: "Sunny"
+              humidity: 45
+              wind_speed: 5.5
+        comments: >
+          Consider adding support for extended forecasts and historical weather data.
+          Implement caching mechanisms to reduce API calls for frequently requested locations.

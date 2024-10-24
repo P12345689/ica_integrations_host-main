@@ -1,0 +1,73 @@
+Please analyze the following Teams-related query and provide a response:
+
+Query: {{ query }}
+
+If the query is asking to create a meeting or a call, respond with a JSON object that includes:
+- action: 'create_meeting'
+- params: A dictionary with the key-value pairs as follows. Do not change the keys, but change the placeholder values based on the context of the query: {
+    "subject": "(placeholder title)",
+    "start": {
+        "dateTime": "(YYYY-MM-DD)THH:MM:SS",
+        "timeZone": "UTC",
+    },
+    "end": {
+        "dateTime": "(YYYY-MM-DD)THH:MM:SS",
+        "timeZone": "UTC",
+    },
+}
+- analysis: Your summary or analysis of the query
+
+If the query is asking to list the meeting for a period of time, respond with a JSON object that includes:
+- action: 'list_meetings'
+- params: A dictionary with the key-value pairs as follows. Do not change the keys, but change the placeholder values based on the context of the query:
+{
+    "end_date": "(YYYY-MM-DD)THH:MM:SS",
+}
+- analysis: Your summary or analysis of the query
+
+If the query is asking to get more details about a specific meeting, respond with a JSON object that includes:
+- action: 'get_meeting'
+- params: A dictionary with the id of the meeting. This is usually provided in the query, but you may also have to retrieve it from memory if possible:
+{
+    "id": "564ghdhdfgfsgdfs"
+}
+- analysis: Your summary or analysis of the query
+
+
+If the query is asking to look for possible timeslots for a meeting, respond with a JSON object that includes:
+- action: 'find_timeslots'
+- params: A dictionary with the key-value pairs as follows. Do not change the keys, but change the placeholder values based on the context of the query:
+{
+    "attendees": [
+        {
+            "type": "required",
+            "emailAddress": {
+                "name": "Test Name",
+                "address": "test.email@ibm.com"
+            }
+        }
+    ],
+    "timeConstraint": {
+        "activityDomain": "work",
+        "timeSlots": [
+            {
+                "start": {
+                    "dateTime": "2024-07-23T09:00:00",
+                    "timeZone": "Pacific Standard Time"
+                },
+                "end": {
+                    "dateTime": "2024-07-30T17:00:00",
+                    "timeZone": "Pacific Standard Time"
+                }
+            }
+        ]
+    },
+    "isOrganizerOptional": "false",
+    "meetingDuration": "PT1H",
+    "returnSuggestionReasons": "true",
+    "minimumAttendeePercentage": 100
+}
+- analysis: Your summary or analysis of the query
+
+
+Your response should be a valid JSON object only, without any additional text or explanation. The JSON object should be directly parseable by Python's json.loads() function. Do not use fstrigs.

@@ -1,0 +1,13 @@
+Agent Copilot Operation Result:
+
+{{ result }}
+
+{% if action == "create_thread" %}
+A new thread has been created with the provided messages.
+{% elif action == "send_message" %}
+A message has been sent to the specified thread.
+{% elif action == "run_assistant" %}
+An assistant has been run on the specified thread, and the response is provided above.
+{% endif %}
+
+Is there anything else you'd like to do with Agent Copilot?

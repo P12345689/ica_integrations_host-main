@@ -1,0 +1,128 @@
+# Configuration file for PowerPoint Placeholder Replacement Tool
+# Default config for provided template (TDA deck)
+
+main_prompt: >
+  Generate extremely concise, note-like content from the provided context and notes. 
+  Prioritize key information over grammatical correctness. Use minimal words, 
+  abbreviations when possible, and omit articles. For 'tda_summary', provide 2-3 
+  short bullet points. For all others, give a single, ultra-concise phrase.
+
+  Do not include any kind of markdown formatting or newlines.
+
+  Output should contain a single line, of plain text.
+
+  Examples:
+  Legacy sys integration challenges, inefficiencies
+  Key tech: migrate legacy to AWS cloud
+  Main risk: data migration, mitigation: phased approach
+
+  Your task: {instructions}
+
+replacements:
+  - placeholder: "${tda_summary}"
+    description: "Contains a 6-8 sentence summary including project goals, the solution approach, and any issues."
+    prompt: "Summarize key points from notes in 6-8 ultra-short sentences. This one can include newlines"
+    instructions: "Highlight project goals, main solution approach, core client issues"
+    max_tokens: 100
+
+  - placeholder: "${client_environment}"
+    description: "A concise statement of the client's primary challenge in 5-7 words."
+    prompt: "Describe client's main challenge in 5-7 words"
+    instructions: "Focus on key problem, use abbreviations if needed"
+    max_tokens: 15
+
+  - placeholder: "${client_benefits}"
+    description: "A brief statement of the top benefit to the client in 5-7 words."
+    prompt: "State top benefit for client in 5-7 words"
+    instructions: "Highlight most impactful advantage, be specific"
+    max_tokens: 15
+
+  - placeholder: "${scope_and_requirements}"
+    description: "A summary of the project's core scope and critical requirements in 5-7 words."
+    prompt: "Summarize core project scope in 5-7 words"
+    instructions: "Include critical requirement, use shorthand"
+    max_tokens: 15
+
+  - placeholder: "${architecture_and_technology}"
+    description: "A concise description of the key technology solution used in the project in 5-7 words."
+    prompt: "Key tech solution in 5-7 words"
+    instructions: "Name main technology/framework, brief purpose"
+    max_tokens: 15
+
+  - placeholder: "${functional_and_data_solution}"
+    description: "A brief description of the core functional or data solution in 5-7 words."
+    prompt: "Core function/data solution in 5-7 words"
+    instructions: "Highlight main feature or data approach"
+    max_tokens: 15
+
+  - placeholder: "${operational_and_infra_solution}"
+    description: "A concise summary of the key operational or infrastructure solution in 5-7 words."
+    prompt: "Key ops/infra solution in 5-7 words"
+    instructions: "Focus on main operational improvement"
+    max_tokens: 15
+
+  - placeholder: "${estimation_model}"
+    description: "A summary of the main estimation method or model used in the project in 5-7 words."
+    prompt: "Main estimation method in 5-7 words"
+    instructions: "Name key factor or technique used"
+    max_tokens: 15
+
+  - placeholder: "${delivery_approach}"
+    description: "A brief description of the core delivery strategy for the project in 5-7 words."
+    prompt: "Core delivery strategy in 5-7 words"
+    instructions: "Highlight main methodology or approach"
+    max_tokens: 15
+
+  - placeholder: "${delivery_plan}"
+    description: "A concise statement of a critical delivery milestone in 5-7 words."
+    prompt: "Critical delivery milestone in 5-7 words"
+    instructions: "Name key phase or deliverable, include timeframe"
+    max_tokens: 15
+
+  - placeholder: "${delivery_organization}"
+    description: "A brief summary of the key team structure or organization for the project in 5-7 words."
+    prompt: "Key team structure in 5-7 words"
+    instructions: "Highlight main roles or org approach"
+    max_tokens: 15
+
+  - placeholder: "${third_party_organizations}"
+    description: "A concise description of the main contribution of a third-party organization in 5-7 words."
+    prompt: "Main 3rd party contribution in 5-7 words"
+    instructions: "Name key partner and their role"
+    max_tokens: 15
+
+  - placeholder: "${delivery_risks}"
+    description: "A brief statement of the top delivery risk and mitigation strategy in 5-7 words."
+    prompt: "Top risk and mitigation in 5-7 words"
+    instructions: "State main risk, brief mitigation strategy"
+    max_tokens: 15
+
+  - placeholder: "${governance}"
+    description: "A concise description of the key governance aspect in 5-7 words."
+    prompt: "Key governance aspect in 5-7 words"
+    instructions: "Highlight main decision-making or oversight approach"
+    max_tokens: 15
+
+  - placeholder: "${service_operation}"
+    description: "A brief summary of the core service transition strategy in 5-7 words."
+    prompt: "Core service transition strategy in 5-7 words"
+    instructions: "Focus on main support or maintenance plan"
+    max_tokens: 15
+
+  - placeholder: "${service_transition_and_data_migration}"
+    description: "A concise statement of the key transition or data migration step in 5-7 words."
+    prompt: "Key transition/migration step in 5-7 words"
+    instructions: "Highlight critical process for smooth changeover"
+    max_tokens: 15
+
+  - placeholder: "${supplier_benefits}"
+    description: "A brief statement of the main benefit for the supplier in 5-7 words."
+    prompt: "Main supplier advantage in 5-7 words"
+    instructions: "State top benefit for supplier, be specific"
+    max_tokens: 15
+
+  - placeholder: "${commercials}"
+    description: "A concise summary of the core commercial aspect, such as pricing or financial model, in 5-7 words."
+    prompt: "Core commercial aspect in 5-7 words"
+    instructions: "Highlight key pricing or financial model"
+    max_tokens: 15

@@ -1,0 +1,14 @@
+Please interpret the following request for a chart and provide the necessary data to generate it:
+
+{{ query }}
+
+Respond with a JSON object that includes the following fields:
+- chart_type: The type of chart to generate (e.g., 'bar', 'pie', 'line', 'scatter', 'histogram')
+- data: A dictionary containing the data for the chart (e.g., {'x': [...], 'y': [...]} for bar and line charts, or {'labels': [...], 'values': [...]} for pie charts, or {'labels': [...], 'weights': [...] for histograms})
+- title: A title for the chart
+
+Your response should be a valid JSON object only, without any additional text or explanation. Do not include backticks or any formatting. The JSON object should be directly parseable by Python's json.loads() function.
+
+Example of a valid response:
+{"chart_type": "pie", "data": {"labels": ["A", "B", "C"], "values": [30, 40, 30]}, "title": "Sample Pie Chart"}
+{"chart_type": "histogram", "data": {"labels": ["10", "11", "12"], "weights": [121, 134, 142]}, "title": "Sample Histogram"}

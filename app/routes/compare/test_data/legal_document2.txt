@@ -1,0 +1,40 @@
+MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Mutual Non-Disclosure Agreement (the "Agreement") is entered into on [DATE] by and between:
+
+Party A: [Company A Name], a company organized and existing under the laws of [State/Country], with its principal place of business at [Address] ("Company A")
+
+and
+
+Party B: [Company B Name], a company organized and existing under the laws of [State/Country], with its principal place of business at [Address] ("Company B")
+
+1. Purpose
+The parties wish to explore a potential business relationship (the "Purpose") and may disclose confidential information to each other in the course of their discussions and negotiations.
+
+2. Definition of Confidential Information
+"Confidential Information" means any information disclosed by either party to the other party, either directly or indirectly, in writing, orally or by inspection of tangible objects, which is designated as "Confidential," "Proprietary" or some similar designation, or that should reasonably be understood to be confidential given the nature of the information and the circumstances of disclosure. Confidential Information shall also include any information related to the disclosing party's business plans, strategies, technologies, or customers.
+
+3. Non-Disclosure and Non-Use
+Each party agrees not to use any Confidential Information of the other party for any purpose except to evaluate and engage in discussions concerning the potential business relationship. Each party agrees not to disclose any Confidential Information of the other party to third parties or to such party's employees, except to those employees who are required to have the information in order to evaluate or engage in discussions concerning the contemplated business relationship. Each party shall take reasonable measures to protect the secrecy of and avoid disclosure and unauthorized use of the Confidential Information.
+
+4. Term
+This Agreement shall remain in effect for a period of three (3) years from the date of disclosure of Confidential Information.
+
+5. Return or Destruction of Materials
+All documents and other tangible objects containing or representing Confidential Information which have been disclosed by either party to the other party shall be and remain the property of the disclosing party and shall be promptly returned to the disclosing party or destroyed upon the disclosing party's written request.
+
+6. No License
+Nothing in this Agreement is intended to grant any rights to either party under any patent, copyright, trade secret or other intellectual property right, nor shall this Agreement grant either party any rights in or to the other party's Confidential Information.
+
+7. General Provisions
+This Agreement shall be governed by and construed in accordance with the laws of [State/Country], without giving effect to any choice of law or conflict of law provisions. This Agreement may not be amended except by a writing signed by both parties. Any failure to enforce any provision of this Agreement shall not constitute a waiver thereof or of any other provision.
+
+IN WITNESS WHEREOF, the parties have executed this Mutual Non-Disclosure Agreement as of the date first above written.
+
+[Company A Name]                           [Company B Name]
+
+By: ___________________________            By: ___________________________
+Name:                                      Name:
+Title:                                     Title:
+
+Date: _________________________            Date: _________________________

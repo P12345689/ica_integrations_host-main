@@ -1,0 +1,4 @@
+{
+    "message": "Generated Logo:\n\n _______\n|       |\n|  O   O |\n|  /__/  |\n| /   \\ |\n|/____\\|\n\nAssembly Code:\n\n         $SBA   (7,15)\n         DC     C' _______'\n         $SF    (SKIP,HI)\n         $SBA   (8,15)\n         DC     C'|       |'\n         $SF    (SKIP,HI)\n         $SBA   (9,15)\n         DC     C'|  O   O |'\n         $SF    (SKIP,HI)\n         $SBA   (10,15)\n         DC     C'|  /__/  |'\n         $SF    (SKIP,HI)\n         $SBA   (11,15)\n         DC     C'| /   \\ |'\n         $SF    (SKIP,HI)\n         $SBA   (12,15)\n         DC     C'|/____\\|'\n         $SF    (SKIP,HI)",
+    "type": "text"
+}

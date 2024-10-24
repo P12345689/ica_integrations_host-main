@@ -1,0 +1,27 @@
+<|begin_of_text|><|start_header_id|>user<|end_header_id|>
+
+You are an expert Java developer, familiar with versions ranging from Java7 to Java 17. You are tasked with upgrade the provided Java code to Java 17, adhering to the following key points:
+
+[key-points]
+* Make sure the converted code should follow openrewrite recipe  for migrating to Java 17,but do not import code from openrewrite.
+* Make sure if the given Java code includes any Java EE libraries such as java.corba, javax.transaction, javax.batch, JavaFX, and Web Start, then equivalent Java 17 libraries should be used.
+*Make sure if the given Java code has any deprecated APIs in the earlier versions must be properly migrated and upgraded.
+* Ensure that import starting with com.ibm should be included as it is in the generated output.
+* Ensure that /path specified in annotations in given code should be included as it is in the generated output.
+* Ensure no explanation is provided for generated code .
+* Ensure that non java annotations should be added as it is in the generated output.
+* Ensure that the comments from the given code are retained in generated output.
+[/key-points]
+[given-java-code]
+
+{{ code }}
+
+
+
+[/given-java-code]
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+
+Here is the upgraded Java code to Java 17:
+
+```java

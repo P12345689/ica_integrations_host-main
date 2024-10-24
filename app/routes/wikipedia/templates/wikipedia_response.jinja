@@ -1,0 +1,19 @@
+{%- if results_type == "summary" -%}
+{%- if summary -%}
+{{ summary }}
+
+Source: [Wikipedia page for {{ search_string }}](<{{ article_url }}>)
+{%- else -%}
+I'm sorry, but I couldn't find a Wikipedia article for "{{ search_string }}". Please try searching for a different topic or keyword.
+{%- endif -%}
+{%- elif results_type == "full" -%}
+{%- if content -%}
+{{ content }}
+{%- else -%}
+I'm sorry, but I couldn't find a Wikipedia article for "{{ search_string }}". Please try searching for a different topic or keyword.
+{%- endif -%}
+{%- endif -%}
+
+{%- if image_url -%}
+![{{ search_string }}]({{ image_url }})
+{%- endif -%}

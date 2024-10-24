@@ -1,0 +1,15 @@
+Here are the available document collections:
+
+{% for collection in collections %}
+- Collection Name: {{ collection.collectionName }}
+  ID: {{ collection.id }}
+  Created By: {{ collection.userName }} ({{ collection.userEmail }})
+  Created At: {{ collection.createdAt }}
+  Updated At: {{ collection.updatedAt }}
+  Visibility: {{ collection.visibility }}
+  Status: {{ collection.status }}
+  Documents: {{ collection.documentNames|join(", ") }}
+  Tags: {{ collection.tags|join(", ") }}
+  Roles: {{ collection.roles|join(", ") }}
+
+{% endfor %}

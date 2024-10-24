@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Integrations Schema",
+  "description": "Schema for validating response objects from Integrations when streaming events as agents.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "error"],
+      "description": "The status of the response. Should always be 'success' or 'error'."
+    },
+    "invocation_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier for the invocation, formatted as a UUID."
+    },
+    "event_id": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "The event ID, should be a non-negative integer, starting from 0."
+    },
+    "is_final_event": {
+      "type": "boolean",
+      "description": "Indicates whether this is the final event in the sequence."
+    },
+    "response": {
+      "type": "array",
+      "description": "A list of response objects containing message and type.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "object",
+            "description": "The message object containing details of the response.",
+            "properties": {
+              "agent_name": {
+                "type": "string",
+                "description": "Name of the agent providing the response."
+              },
+              "thought": {
+                "type": "string",
+                "description": "Agent's thought process or reasoning.",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "action": {
+                "type": "string",
+                "description": "Action taken by the agent.",
+                "minLength": 1,
+                "maxLength": 255
+              },
+              "tool_input": {
+                "type": "string",
+                "description": "Input provided to the tool by the agent.",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "log": {
+                "type": "string",
+                "description": "Log of the actions taken and observations made.",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "observation": {
+                "type": "string",
+                "description": "Observations made by the agent after performing the action.",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            },
+            "required": ["agent_name"],
+            "additionalProperties": false
+          },
+          "type": {
+            "type": "string",
+            "enum": ["text","image","url","code","html"],
+            "description": "The type of message."
+          }
+        },
+        "required": ["message", "type"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["status", "invocation_id", "event_id", "is_final_event", "response"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "status": "success",
+      "invocation_id": "0fb142c2-d1da-43f7-84ad-cbd31890a1fc",
+      "event_id": 0,
+      "is_final_event": false,
+      "response": [
+        {
+          "message": {
+            "agent_name": "agent_langchain",
+            "thought": "Jerry Cuomo is a public figure, so information about him should be available online.\nAction: Google Search\nAction Input: \"Jerry Cuomo biography\""
+          },
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "status": "success",
+      "invocation_id": "0fb142c2-d1da-43f7-84ad-cbd31890a1fc",
+      "event_id": 1,
+      "is_final_event": false,
+      "response": [
+        {
+          "message": {
+            "agent_name": "agent_langchain",
+            "action": "Google Search",
+            "tool_input": "Jerry Cuomo biography",
+            "log": "Jerry Cuomo is a public figure, so information about him should be available online.\nAction: Google Search\nAction Input: \"Jerry Cuomo biography\"",
+            "observation": "Jerry Cuomo ... Gennaro \"Jerry\" Cuomo (born 1962) is an American software engineer who has worked for IBM since 1987. Holding the title of IBM Fellow, Cuomo is..."
+          },
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

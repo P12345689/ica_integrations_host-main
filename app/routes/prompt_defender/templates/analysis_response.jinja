@@ -1,0 +1,16 @@
+Prompt Defender Analysis Results:
+
+Potential Injection Detected: {{ "Yes" if is_potential_injection else "No" }}
+
+Detailed Results:
+{% for method, result in results.items() %}
+- {{ method|capitalize }} check: {{ "Failed" if result else "Passed" }}
+{% endfor %}
+
+{% if is_potential_injection %}
+Warning: The provided prompt has been flagged as potentially malicious. Please review and proceed with caution.
+{% else %}
+The provided prompt appears to be safe based on our current analysis.
+{% endif %}
+
+For more information or to report a false positive/negative, please contact our support team.

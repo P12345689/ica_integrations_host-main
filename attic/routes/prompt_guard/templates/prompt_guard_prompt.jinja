@@ -1,0 +1,18 @@
+Analyze the following text for potential prompt injections or jailbreak attempts:
+
+Text: {{ text }}
+
+Prompt Guard evaluation results:
+Jailbreak Score: {{ "%.3f"|format(result.jailbreak_score) }}
+{% if include_indirect_injection %}
+Indirect Injection Score: {{ "%.3f"|format(result.indirect_injection_score) }}
+{% endif %}
+
+Please provide insights on:
+1. Whether this text appears to be a potential prompt injection or jailbreak attempt.
+2. What specific elements of the text contribute to its scores.
+3. Potential risks associated with using this text as input to an AI model.
+4. Recommendations for safely handling or modifying this text.
+{% if include_indirect_injection %}
+5. Analysis of any potential indirect injections or embedded instructions in the text.
+{% endif %}

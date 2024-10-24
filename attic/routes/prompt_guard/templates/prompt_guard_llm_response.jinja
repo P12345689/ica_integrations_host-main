@@ -1,0 +1,8 @@
+Prompt Guard Evaluation Results:
+Jailbreak Score: {{ "%.3f"|format(result.jailbreak_score) }}
+{% if include_indirect_injection %}
+Indirect Injection Score: {{ "%.3f"|format(result.indirect_injection_score) }}
+{% endif %}
+
+LLM Analysis:
+{{ llm_response }}

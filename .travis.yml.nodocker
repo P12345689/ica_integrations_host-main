@@ -1,0 +1,40 @@
+sudo: false
+language: python
+python:
+  - 3.11
+os:
+  - linux
+before_install:
+  - sudo cat /etc/apt/sources.list; sudo ls /etc/apt/sources.list.d/
+  - sudo sed -i '/erlang/s/^/#/' /etc/apt/sources.list.d/*.list
+#  - sudo add-apt-repository --remove "deb [arch=amd64] https://packages.erlang-solutions.com/ubuntu focal main" || true
+  - sudo apt-get -qq update || true
+  - sudo apt-get install -y pandoc graphviz aspell aspell-en || true
+  - mkdir -p ~/.config/icacli
+  - pip install pip --upgrade
+  - pip install coverage pdm --upgrade
+  - pip install -e .
+  - pip install .[dev]
+script:
+  - make install-scc-linux
+  - make scc-report | tee docs/docs/test/scc.md
+  - make lint | tee docs/docs/test/lint.md
+  - make wily | tee -a docs/docs/test/lint.md
+  - make docs
+  # - make unittest
+  # - make coverage
+  # - make pstats
+  #- find site/
+deploy:
+  provider: pages
+  target_branch: gh-pages
+  keep_history: false
+  github-url: github.ibm.com
+  verbose: true
+  skip_cleanup: true
+  github-token: $GITHUB_TOKEN
+  local_dir: site
+  on:
+    branch: main
+git:
+  depth: false

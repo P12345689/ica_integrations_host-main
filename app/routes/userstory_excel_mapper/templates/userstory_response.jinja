@@ -1,0 +1,7 @@
+{# This template is used to format the final response if needed #}
+The generation of user stories has started. Please use the following URL after 10 minutes, and within 24 hours, to access the generated user stories:
+
+{{ file_url }}
+{% if is_trimmed %}
+Please Note: To ensure fair usage, user story generation is capped at 10 requirements per request. Please submit any additional requirements in a new request to continue the process.
+{% endif %}

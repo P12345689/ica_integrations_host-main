@@ -1,0 +1,33 @@
+John Doe
+123 Main St, Anytown, USA
+john.doe@email.com | (555) 123-4567
+
+SUMMARY
+Experienced software engineer with 5 years of expertise in full-stack web development, specializing in JavaScript, Python, and cloud technologies.
+
+SKILLS
+- Programming Languages: JavaScript, Python, TypeScript, HTML, CSS
+- Frameworks: React, Node.js, Express, Django
+- Databases: MongoDB, PostgreSQL, MySQL
+- Cloud: AWS (EC2, S3, Lambda)
+- Tools: Git, Docker, Kubernetes
+
+EXPERIENCE
+Senior Software Engineer | TechStart Inc. | 2018 - Present
+- Led development of scalable web applications using React, Node.js, and AWS
+- Implemented microservices architecture, improving system modularity and scalability
+- Mentored junior developers and conducted technical interviews
+- Introduced Kubernetes for container orchestration, enhancing deployment efficiency
+
+Software Developer | CodeCraft Solutions | 2016 - 2018
+- Developed and maintained client websites using WordPress, PHP, and JavaScript
+- Implemented custom plugins and themes to meet specific client requirements
+- Optimized database queries, improving site performance by 40%
+
+EDUCATION
+Bachelor of Science in Computer Science | State University | 2012 - 2016
+
+CERTIFICATIONS
+- AWS Certified Developer - Associate
+- Certified JavaScript Developer
+- Docker Certified Associate

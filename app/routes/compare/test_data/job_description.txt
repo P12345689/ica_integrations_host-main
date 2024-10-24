@@ -1,0 +1,38 @@
+Job Title: Senior Full-Stack Developer
+
+About Us:
+TechInnovate is a rapidly growing tech company specializing in building scalable, cloud-native applications for enterprise clients. We're looking for a talented Senior Full-Stack Developer to join our dynamic team and help drive our technology initiatives forward.
+
+Responsibilities:
+- Design, develop, and maintain robust, scalable web applications
+- Work with both front-end and back-end technologies to deliver complete solutions
+- Collaborate with cross-functional teams to define and implement new features
+- Optimize application performance and improve code quality
+- Mentor junior developers and participate in code reviews
+- Stay up-to-date with emerging technologies and industry trends
+
+Requirements:
+- 5+ years of experience in full-stack web development
+- Strong proficiency in Python and JavaScript
+- Experience with modern web frameworks such as Django, Flask, React, or Angular
+- Solid understanding of database systems (e.g., PostgreSQL, MongoDB)
+- Familiarity with cloud platforms (AWS, Azure, or GCP)
+- Experience with containerization and orchestration (Docker, Kubernetes)
+- Strong knowledge of version control systems (Git)
+- Excellent problem-solving and communication skills
+
+Preferred Qualifications:
+- Experience with microservices architecture
+- Knowledge of machine learning frameworks (TensorFlow, PyTorch)
+- Familiarity with CI/CD practices and tools (Jenkins, GitLab CI)
+- Contributions to open-source projects
+- Relevant certifications (AWS, Google Cloud, Kubernetes)
+
+What We Offer:
+- Competitive salary and benefits package
+- Opportunities for professional growth and learning
+- Flexible work arrangements
+- Collaborative and innovative work environment
+- Chance to work on cutting-edge technologies and challenging projects
+
+If you're passionate about creating high-quality, scalable web applications and thrive in a fast-paced, collaborative environment, we'd love to hear from you!

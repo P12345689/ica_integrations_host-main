@@ -1,0 +1,75 @@
+{
+    "server_url": "http://localhost:8080",
+    "endpoints": [
+        {
+            "method": "GET",
+            "path": "/health",
+            "interval": 1,
+            "payload": null,
+            "content_type": "application/json",
+            "integrations_auth_token": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/experience/docbuilder/generate_docs/invoke",
+            "interval": 10,
+            "payload": {
+                "input_text": "Various kinds of boat"
+            },
+            "content_type": "application/json",
+            "integrations_auth_token": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/system/wikipedia/retrievers/search/invoke",
+            "interval": 10,
+            "payload": {
+                "search_string": "Python programming",
+                "results_type": "summary"
+            },
+            "content_type": "application/json",
+            "integrations_auth_token": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/datagenerator/invoke",
+            "interval": 10,
+            "payload": {
+                "num_rows": 20,
+                "sample_csv":"name\nMihai",
+                "data_types":""
+            },
+            "content_type": "application/json",
+            "integrations_auth_token": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/joke/invoke",
+            "interval": 10,
+            "payload": {
+                "input": {
+                    "topic": "cats"
+                }
+            },
+            "content_type": "application/json",
+            "integrations_auth_token": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/system/mermaid_service/transformers/syntax_to_image/invoke",
+            "interval": 10,
+            "payload": {"query":"graph LR\n    Start --> BoilWater[Boil water]"},
+            "content_type": "application/json",
+            "integrations_auth_token": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/system/plantuml/transformers/syntax_to_image/invoke",
+            "interval": 10,
+            "payload": {"description":"@startuml\nAlice -> Bob: Hello Bob, how are you?\nBob --> Alice: I am fine, thanks!\n@enduml"},
+            "content_type": "application/json",
+            "integrations_auth_token": "dev-only-token"
+        }
+    ],
+    "concurrency_level": 12
+}

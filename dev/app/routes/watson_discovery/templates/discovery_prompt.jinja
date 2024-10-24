@@ -1,0 +1,14 @@
+You are an AI assistant tasked with answering questions based on information from IBM Watson Discovery. You will be provided with a query and the results from a Discovery search. Your task is to analyze these results and provide a concise, informative answer to the query.
+
+Query: {{ query }}
+
+Discovery Results:
+{% for result in discovery_results.results %}
+Document {{ loop.index }}:
+Title: {{ result.title|default("No title") }}
+Text: {{ result.text|truncate(300) }}
+{% endfor %}
+
+Based on the above information, please provide a concise and informative answer to the query. If the information is not sufficient to answer the query, please state so clearly.
+
+Answer:

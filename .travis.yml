@@ -1,0 +1,52 @@
+sudo: false
+language: python
+python:
+  - 3.11
+services:
+  - docker
+os:
+  - linux
+before_install:
+  - sudo cat /etc/apt/sources.list; sudo ls /etc/apt/sources.list.d/
+  - sudo sed -i '/erlang/s/^/#/' /etc/apt/sources.list.d/*.list
+  - sudo apt-get -qq update || true
+  - sudo apt-get install -y pandoc graphviz aspell aspell-en || true
+  - mkdir -p ~/.config/icacli
+  - pip install pip --upgrade
+  - pip install coverage pdm --upgrade
+  - pip install -e .
+  - pip install .[dev]
+jobs:
+  include:
+    - stage: build
+      script:
+        - make install-scc-linux
+        - make scc-report | tee docs/docs/test/scc.md
+        - make lint | tee docs/docs/test/lint.md
+        - make wily | tee -a docs/docs/test/lint.md
+    - stage: build
+      script: make unittest
+    - stage: build
+      script:
+        - docker build -f Containerfile --platform=linux/amd64 -t ica/ica_integrations_host .
+        - docker images
+        - docker run -e TEAM_ID=${TEAM_ID} -e ASSISTANT_ID=${ASSISTANT_ID} -e COLLECTION_ID=${COLLECTION_ID} -e USER_HASH=${USER_HASH} -e USER_EMAIL=${USER_EMAIL} -e JIRA_ISSUE=${JIRA_ISSUE} -e GOOGLE_API_KEY=${GOOGLE_API_KEY} -e GOOGLE_CSE_ID=${GOOGLE_CSE_ID} --name ica_integrations_host -p 8080:8080 -d ica/ica_integrations_host
+        - docker ps -a && sleep 10
+        - docker logs ica_integrations_host
+        - make podman-test
+        - cd ./test && ./test-concurrency.py --duration=120 --run-once || true && cd ..
+    - stage: docs
+      script: make docs
+      deploy:
+        provider: pages
+        target_branch: gh-pages
+        keep_history: false
+        github-url: github.ibm.com
+        verbose: true
+        skip_cleanup: true
+        github-token: $GITHUB_TOKEN
+        local_dir: site
+        on:
+          branch: main
+git:
+  depth: false

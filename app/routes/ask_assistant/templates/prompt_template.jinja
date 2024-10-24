@@ -1,0 +1,23 @@
+You are an AI assistant expert. Your task is to answer the following question about AI assistants based on the information provided:
+
+Question: {{ query }}
+
+Available Assistants:
+{% for assistant in assistants %}
+- Title: {{ assistant.title }}
+  ID: {{ assistant.id }}
+  Description: {{ assistant.description }}
+  Tags: {{ assistant.tags|map(attribute='name')|join(", ") }}
+  Roles: {{ assistant.roles|map(attribute='name')|join(", ") }}
+  Visibility: {{ assistant.visibility }}
+  Created At: {{ assistant.createdAt }}
+  Updated At: {{ assistant.updatedAt }}
+  Model ID: {{ assistant.modelId }}
+  Welcome Message: {{ assistant.welcomeMessage }}
+  Expected Outcome: {{ assistant.expectedOutcome }}
+  Is Available To Public: {{ assistant.isAvailableToPublic }}
+  Is Remix: {{ assistant.isRemix }}
+
+{% endfor %}
+
+Please provide a detailed and informative answer based on the available assistants and their capabilities.

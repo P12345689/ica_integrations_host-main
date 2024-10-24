@@ -1,0 +1,27 @@
+{
+    "jailbreak_score": {{ result.jailbreak_score }},
+    {% if include_indirect_injection %}
+    "indirect_injection_score": {{ result.indirect_injection_score }},
+    {% endif %}
+    "warnings": [
+        {% if result.jailbreak_score > 0.5 %}
+        "This text has a high probability of containing a jailbreak attempt."
+        {% endif %}
+        {% if include_indirect_injection and result.indirect_injection_score > 0.5 %}
+        {% if result.jailbreak_score > 0.5 %},{% endif %}
+        "This text has a high probability of containing embedded instructions or prompt injections."
+        {% endif %}
+    ],
+    "malicious_bits": [
+        {% for bit in result.malicious_bits %}
+        {
+            "chunk_index": {{ bit.chunk_index }},
+            "text": {{ bit.text | tojson }},
+            "jailbreak_score": {{ bit.jailbreak_score }}
+            {% if include_indirect_injection %},
+            "indirect_injection_score": {{ bit.indirect_injection_score }}
+            {% endif %}
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}

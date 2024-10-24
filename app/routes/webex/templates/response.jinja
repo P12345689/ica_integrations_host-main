@@ -1,0 +1,18 @@
+WebEx Operation Result:
+
+{{ result }}
+
+{% if action == "list_transcripts" %}
+This response lists the available transcripts and includes the content of the most recent transcript.
+{% elif action == "get_transcript" %}
+This response contains the content of the requested transcript.
+{% elif action == "summarize_transcript" %}
+This response provides a summary of the requested transcript.
+{% endif %}
+
+{% if analysis %}
+LLM Analysis:
+{{ analysis }}
+{% endif %}
+
+Is there anything else you'd like to know about WebEx transcripts?

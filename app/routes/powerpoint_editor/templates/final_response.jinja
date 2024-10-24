@@ -1,0 +1,21 @@
+PowerPoint Processing Complete
+
+The PowerPoint presentation has been successfully processed based on the provided notes and configuration.
+
+Processed PowerPoint URL: {{ pptx_url }}
+
+Replacements Made:
+{% for replacement in replacements %}
+- Placeholder: {{ replacement.placeholder }}
+  Content: {{ replacement.value }}
+
+{% endfor %}
+
+Summary:
+- Total placeholders processed: {{ replacements|length }}
+- Processing completed on: {{ processing_date }}
+{% if author_name %}
+- Author: {{ author_name }}{% if author_email %} ({{ author_email }}){% endif %}
+{% endif %}
+
+The processed PowerPoint incorporates the generated content for each placeholder. Please review the presentation to ensure it meets your requirements.

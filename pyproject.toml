@@ -1,0 +1,178 @@
+# pip install .[libica_local,routes_sdv,dev]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project]
+name = "ica_integrations_host"
+version = "0.1.0"
+description = "Server using langchain library for IBM Consulting Assistants Extensions"
+authors = [
+    { name = "Mihai Criveti", email = "crmihai1@ie.ibm.com" },
+    { name = "Chris Hay", email = "chris.hay@uk.ibm.com" }
+]
+readme = "README.md"
+license = {file = "LICENSE.md"}
+keywords = ["ica", "assistants", "ibm"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+requires-python = ">=3.10"
+
+# Core dependencies, always installed
+dependencies = [
+    "httpx==0.27.0",                    # Wikipedia
+    "fastapi==0.112.2",                 # Core server
+    "greenlet==3.0.3",                  #
+    "llama-index==0.11.17",             # agent_llamaindex
+    "llama-index-llms-ollama==0.3.4",   # ollama
+    "langchain==0.2.14",                 # Langchain
+    "langchain-community==0.2.12",       # Langchain
+    "langchain-core==0.2.35",           # Langchain
+    "langchain-google-community==1.0.8",# google
+    "langchain-text-splitters==0.2.2",  # Langchain
+    "langchain-nvidia-ai-endpoints==0.2.1",    # agent_langchain
+    "langchainhub==0.1.21",             # routes/qareact
+    "langchain_openai==0.1.22",         # routes/qareact
+    "tenacity==8.3.0",                  # https://github.com/langchain-ai/langchain/issues/22972 requires 8.3.0
+    "python-dotenv==1.0.1",             # Dotenv
+    "requests==2.32.3",                 #
+    "sse-starlette==2.1.3",             #
+    "starlette==0.38.2",                # fastapi 0.112.0 depends on starlette
+    "uvicorn==0.30.6",                  #
+    "gunicorn==23.0.0",                 #
+    "google-api-python-client",         # routes/googlesearch
+    "duckduckgo_search==6.2.12",        # routes/duckduckgo
+    "scikit-learn==1.5.1",              # routes/assistant_finder
+    "Jinja2==3.1.4",                    # Templating
+    "pillow==10.4.0",                   # PIL image manipulation
+    "beautifulsoup4==4.12.3",           # Used by website retriever
+    "matplotlib==3.9.2",                # used by chart route
+    "plotly==5.23.0",                   # used by plotly route
+    "kaleido==0.2.1",                   # Used to export PNG when using plotly
+    "openpyxl==3.1.5",                  # xlsx_builder
+    "pandas==2.1.4",                    # xlsx_builder ibm-watsonx-ai 1.1.2 depends on pandas<2.2.0 and >=0.24.2
+    "PyGithub==2.4.0",                  # github
+    "git-fame==2.0.2",                  # used by github analyzer
+    "python-multipart==0.0.9",          # multipart upload
+    "boto3==1.35.6",                    # AWS Q
+    "PyJWT==2.9.0",                     # AWS Q
+    "Faker==28.0.0",                    # PII sanitizer
+    "transformers==4.44.2",             # summarizer
+    "aiofiles==24.1.0",                 # tts
+     #"webexteamssdk==1.7",             # webex
+    "ibm-watsonx-ai==1.1.6",            # agent_langchain
+    "jira==3.8.0",                      # jira
+    "python-pptx==1.0.2",               # powerpoint-editor
+    "unstructured==0.16.0"              # file_retriever
+]
+
+# Optional dependencies, install with `pip install .[dev,routes_sdv,libica_loca]` etc. (`pip install ".[dev]"` on MacOS)
+[project.optional-dependencies]
+
+routes_python_executor = [
+    "RestrictedPython==7.2",
+]
+
+routes_sdv = [                          # routes/sdv
+    "sdv==1.16.0",
+    "pandas==2.1.4",
+#    "torch==2.4.0",                    # Installing via Containerfile pip3 install torch==2.4.0 --index-url https://download.pytorch.org/whl/cpu
+]
+
+routes_graphql_mapper_function = [
+    "sentence_transformers==3.0.1",
+    "chromadb==0.5.5",
+    "pysqlite3-binary==0.5.3"
+]
+
+# Used by code_splitter
+# Do not upgrade, see: https://github.com/langchain-ai/langchain/issues/22192
+routes_code_splitter = [
+    "tree-sitter==0.21.3",
+    "tree-sitter-languages==1.10.2"
+]
+
+routes_crew_ai = [
+    "crewai==0.51.1",
+    "crewai[tools]==0.51.1",
+]
+
+routes_autogen = [
+    "autogen==0.3.1",
+    "markdownify==0.13.1"
+]
+
+# libica 0.8.0
+libica_local = [
+    "libica @ file:///${PROJECT_ROOT}/packages/consulting_assistants_api",
+    "langchain_consultingassistants @ file:///${PROJECT_ROOT}/packages/langchain_consultingassistants",
+]
+
+# # Local pypy server
+# libica_mypypy = [
+    # "libica @ http://127.0.0.1:5555/packages/libica-0.6.1.tar.gz#sha256=0ce0acad8f3df3bad1cf43f57b626bd7029a23fd88cffb36487454bd6fc58c6b",
+# ]
+#
+# # JFrog Artifactory - boomerang
+# libica_boomerang = [
+    # "libica @ https://tools.boomerangplatform.net/artifactory/api/pypi/boomeranglib-pypi/libica/0.6.1/libica-0.6.1-py3-none-any.whl#sha256=e4211fd5383c0054e9b023220152a265123e75ad7ced7f6e43c7dcc9b6e058a4",
+# ]
+
+
+dev = [
+    "darglint==1.8.1",            # docstring linter, checks description matches function/method implementation.
+    "cookiecutter==2.6.0",        # template builder, used to add routes
+    "pytest==8.3.2",              # Unit test framework
+    "pytest-md-report==0.6.2",    # Markdown output for pytest
+    "pytest-xdist==3.6.1",        # Execute parallel unit tests with pytest
+    "pytest-rerunfailures==14.0", # Rerun failed tests, mark tests flaky
+    "pytest-examples==0.0.13",    # Test markdown and docstring
+    "pytest-asyncio==0.24.0",     # Test async functions
+    "black>=22.3.0",              # Code style
+    "isort>=5.10.1",              # Sort python imports
+    "mypy==1.11.2",               # Static analysis. Version 1.10.0 has issues.
+    "pexpect==4.9.0",             # Used for ./test.py to test setup-config using expect
+    "argparse-manpage==4.6",      # Used to generate manpages
+    "coverage==7.6.1",            # Test coverage
+    "coverage-badge==1.1.2",      # Generate SVG badge for coverage
+    "handsdown==2.1.0",           # Generate documentation
+    "pylint==3.2.6",              # Linter, also provides pyreverse
+    "pylint-pydantic==0.3.2",     # Pylint plugin to help pylint understand pydantic
+    "bump2version==1.0.1",        # Update version
+    "flake8==7.1.1",              # flake8 static analysis
+    "pre-commit==3.8.0",          # Pre-commit hooks, used for pre-commit run -a
+    "bandit==1.7.9",              # Security scan
+    "pydocstyle==6.3.0",          # Document linting
+    "pytest-cov==5.0.0",          # Unit test with test coverage support
+    "ruff==0.6.2",                # Modern formatter, linter and checker
+    "pyright==1.1.377",           # Linter
+    "pip-licenses==5.0.0",        # Check licenses for dependencies
+    "fawltydeps==0.17.0",         # Check dependencies
+    "pyre-check==0.9.22",         # Static typing analyzer
+    "radon==5.1.0",               # Radon code metrics & maintainability index. wily depends on 5.1.0, latest is 6.0.1
+    "pyroma==4.2",                # Check that the Python project complies with best practices of the Python packaging ecosystem
+    "snakeviz==2.2.0",            # Profiler & visualizer
+    "gprof2dot==2022.7.29",       # Create dot diagrams from profiling data
+    "wily==1.25.0",               # Code metrics (ex: maintainability, loc)
+    "pyspelling==2.10",           # Spellcheck
+    "importchecker==3.0",         # Check imports
+    "code2flow==2.5.1",           # Generate code flow diagram
+    "pytype==2024.4.11",          # Type checker
+    "settings-doc==4.0.1",        # Type checker
+    "types-tabulate==0.9.0.20240106", # Types for mypy
+]
+
+[project.urls]
+Homepage = "https://servicesessentials.ibm.com/launchpad"
+Repository = "https://github.ibm.com/destiny/langserve_server"
+Documentation = "https://github.ibm.com/destiny/langserve_server/blob/main/README.md"
+
+[tool.setuptools]
+py-modules = []
+
+[tool.pdm]

@@ -1,0 +1,25 @@
+{
+    "UserStory": {
+        "us_detail_assistant_id": "8352",
+        "epic_us_assistant_id": "22113",
+        "headers": [
+            "Summary",
+            "Description",
+            "Priority",
+            "Classification",
+            "Acceptance Criteria"
+        ],
+        "section_to_header_mapping": {
+            "Title": "Summary",
+            "Description": "Description",
+            "User Story": "Description",
+            "Priority": "Priority",
+            "Classification": "Classification",
+            "Constraints": "Acceptance Criteria",
+            "Acceptance Criteria": "Acceptance Criteria",
+            "Validation Rules": "Acceptance Criteria",
+            "Business Rules": "Acceptance Criteria",
+            "Non-Functional Requirements (NFRs)": "Acceptance Criteria"
+        }
+    }
+}

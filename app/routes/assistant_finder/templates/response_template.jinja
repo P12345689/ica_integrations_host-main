@@ -1,0 +1,15 @@
+The LLM has recommended the following assistant as the best match for your description:
+
+## Recommended Assistant:
+
+- {{ llm_response }}
+
+## Top {{ num_similar_assistants }} Assistants that match your description:
+
+Here are the top {{ num_similar_assistants }} assistants sorted by their relevance to your description:
+
+{% for assistant in assistants %}
+Assistant {{ loop.index }}:
+- {{ assistant.id }} - {{ assistant.description }} - {{ assistant.match_percentage }}% match
+
+{% endfor %}

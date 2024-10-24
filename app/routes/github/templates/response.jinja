@@ -1,0 +1,19 @@
+GitHub Operation Result:
+
+{{ result }}
+
+{% if action == "get_issue" or action == "get_pr" %}
+This response includes the title and body of the requested issue or pull request.
+{% elif action == "list_issues" or action == "list_prs" %}
+This response lists the numbers and titles of the issues or pull requests in the repository.
+{% elif action == "create_issue" or action == "create_pr" %}
+A new issue or pull request has been created with the provided details.
+{% elif action == "list_releases" %}
+This response lists the tag names and titles of the releases in the repository.
+{% elif action == "create_release" %}
+A new release has been created with the provided details.
+{% elif action == "get_file" %}
+The content of the requested file is provided above.
+{% endif %}
+
+Is there anything else you'd like to know or do with this GitHub repository?

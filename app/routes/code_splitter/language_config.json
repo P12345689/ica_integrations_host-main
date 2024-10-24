@@ -1,0 +1,19 @@
+{
+    "bash": ".sh",
+    "python": ".py",
+    "javascript": ".js",
+    "java": ".java",
+    "c": ".c",
+    "cpp": ".cpp",
+    "c_sharp": ".cs",
+    "css": ".css",
+    "html": ".html",
+    "php": ".php",
+    "ruby": ".rb",
+    "rust": ".rs",
+    "go": ".go",
+    "typescript": ".ts",
+    "json": ".json",
+    "yaml": ".yaml",
+    "sql": ".sql"
+}

@@ -1,0 +1,12 @@
+{
+  "module_name": "example_module",
+  "description": "Detailed description of your integration",
+  "author": "Name of the author",
+  "email": "example@email.com",
+  "copyright": "IBM",
+  "license": "MIT",
+  "version": "0.1.0",
+  "date": "{% now 'utc', '%Y-%m-%d' %}",
+  "status": "Alpha",
+  "_copy_without_render": ["templates/*"]
+}

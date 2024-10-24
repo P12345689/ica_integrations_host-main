@@ -1,0 +1,9 @@
+Here are the assistants that match your criteria:
+
+{% for assistant in assistants %}
+- ID: {{ assistant.id }} Title: {{ assistant.title }}
+  Description: {{ assistant.description }}
+  Tags: {{ assistant.tags|join(", ") }}
+  Roles: {{ assistant.roles|join(", ") }}
+
+{% endfor %}

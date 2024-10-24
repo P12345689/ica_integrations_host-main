@@ -1,0 +1,8 @@
+[
+  {
+    "agent_name": "DymystifierTeam",
+    "route": "/demystifier",
+    "route_enabled": "True",
+    "llm_config_file": "DEMYSTIFIERTEAM_LLM_CONFIG"
+  }
+]

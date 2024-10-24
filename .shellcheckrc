@@ -1,0 +1,7 @@
+# ~/.shellcheckrc
+
+# Don't follow source
+disable=SC1091
+
+# Suggest ${VAR} in place of $VAR
+enable=require-variable-braces

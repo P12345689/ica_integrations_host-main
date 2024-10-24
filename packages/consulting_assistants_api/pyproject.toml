@@ -1,0 +1,114 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pdm]
+distribution = true
+
+[project]
+name = "libica"
+version = "0.8.0"
+description = "libica and icacli - python library and cli for IBM Consulting Assistants Extensions"
+authors = [
+    {name = "Mihai Criveti", email = "crmihai1@ie.ibm.com"},
+]
+readme = "README.md"
+license = {file = "LICENSE.md"}
+keywords = ["ica", "assistants", "ibm"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.9"
+
+dependencies = [
+    "requests==2.32.3",         # Common dependency required in all installations
+    "tabulate==0.9.0",          # Used by cli to display output as a table
+    "pydantic[email]==2.8.2",   # Does a lot of the validation
+    "pydantic-settings==2.4.0", # Used to validate settings
+    "argcomplete==3.5.0",       # CLI autocompletion
+    "rich==13.8.0",             # Rich text and beautiful formatting in the terminal
+    "prompt_toolkit==3.0.47"    # icacli interactive
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.2.0",              # Unit test framework
+    "pytest-md-report==0.5.1",    # Markdown output for pytest
+    "pytest-xdist==3.6.1",        # Execute parallel unit tests with pytest
+    "pytest-rerunfailures==14.0", # Rerun failed tests, mark tests flaky
+    "pytest-examples==0.0.10",    # Test markdown and docstring, similar to https://pypi.org/project/pytest-doctestplus/
+    "pytest-doctestplus==1.2.1",  # https://pypi.org/project/pytest-doctestplus/
+    "black>=22.3.0",              # Code style
+    "isort>=5.10.1",              # Sort python imports
+    "mypy==1.10.0",               # Static analysis. Version 1.10.0 has issues.
+    "pexpect==4.9.0",             # Used for ./test.py to test setup-config using expect
+    "argparse-manpage==4.5",      # Used to generate manpages
+    "coverage==7.5.0",            # Test coverage
+    "handsdown==2.1.0",           # Generate documentation
+    "pylint==3.1.0",              # Linter, also provides pyreverse
+    "pylint-pydantic==0.3.2",     # Pylint plugin to help pylint understand pydantic
+    "bump2version==1.0.1",        # Update version
+    "flake8==7.0.0",              # flake8 static analysis
+    "flake8-pydantic==0.3.1",     # Pydantic flake8 plugin now fixed: https://github.com/Viicos/flake8-pydantic/issues/8
+    "pre-commit==3.7.0",          # Pre-commit hooks, used for pre-commit run -a
+    "bandit==1.7.8",              # Security scan
+    "pydocstyle==6.3.0",          # Document linting
+    "pytest-cov==5.0.0",          # Unit test with test coverage support
+    "ruff==0.4.2",                # Modern formatter, linter and checker
+    "pyright==1.1.361",           # Linter
+    "pip-licenses==4.4.0",        # Check licenses for dependencies
+    "fawltydeps==0.15.0",         # Check dependencies
+    "pyre-check==0.9.19",         # Static typing analyzer
+    "radon==5.1.0",               # Radon code metrics & maintainability index. wily depends on 5.1.0, latest is 6.0.1
+    "pyroma==4.2",                # Check that the Python project complies with best practices of the Python packaging ecosystem
+    "snakeviz==2.2.0",            # Profiler & visualizer
+    "gprof2dot==2022.7.29",       # Create dot diagrams from profiling data
+    "coverage-badge==1.1.1",      # Generate SVG badge for coverage
+    "wily==1.25.0",               # Code metrics (ex: maintainability, loc)
+    "pyspelling==2.10",           # Spellcheck
+    "importchecker==3.0",         # Check imports
+    "code2flow==2.5.1",           # Generate code flow diagram
+    "pytype==2024.4.11",          # Type checker
+    "settings-doc==4.0.1",        # Type checker
+    "types-tabulate==0.9.0.20240106", # Types for mypy
+]
+
+# You can optionally install libica[langchain]
+# TODO: - vs _
+langchain = [
+    "langchain-consultingassistants @ file:///${PROJECT_ROOT}/packages/langchain_consultingassistants",
+]
+
+llama_index = [
+    "llama_index_consultingassistants @ file:///${PROJECT_ROOT}/packages/llama_index_consultingassistants",
+]
+
+[project.scripts]
+icacli = "icacli.assistants:main"
+
+[project.urls]
+Homepage = "https://servicesessentials.ibm.com/launchpad"
+Repository = "https://github.ibm.com/destiny/consulting_assistants_api"
+Documentation = "https://github.ibm.com/destiny/consulting_assistants_api/blob/main/README.md"
+
+[tool.pytest.ini_options]
+md_report = true
+md_report_verbose = 3
+md_report_color = "auto"
+
+[tool.pylint.MASTER]
+load-plugins = "pylint_pydantic"
+
+[tool.pytype]
+inputs = ['libica']

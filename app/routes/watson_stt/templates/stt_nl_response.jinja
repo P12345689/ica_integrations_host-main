@@ -1,0 +1,36 @@
+I've transcribed the audio for you. Here's what I found:
+
+{% for result in transcription.get('results', []) %}
+{% set best_alternative = result.get('alternatives', [])|first %}
+{% if best_alternative %}
+The main transcript is: "{{ best_alternative.get('transcript', '') }}"
+
+{% if best_alternative.get('confidence') %}
+I'm {{ (best_alternative.get('confidence', 0) * 100)|round(2) }}% confident in this transcription.
+{% endif %}
+
+{% if best_alternative.get('timestamps') %}
+Here's a breakdown of when each word was spoken:
+{% for word, start, end in best_alternative.get('timestamps', []) %}
+- "{{ word }}" was spoken from {{ start }} to {{ end }} seconds.
+{% endfor %}
+{% endif %}
+
+{% if result.get('alternatives')|length > 1 %}
+I also have {{ result.get('alternatives')|length - 1 }} alternative transcriptions:
+{% for alt in result.get('alternatives')[1:] %}
+- "{{ alt.get('transcript', '') }}" (Confidence: {{ (alt.get('confidence', 0) * 100)|round(2) }}%)
+{% endfor %}
+{% endif %}
+
+{% endif %}
+{% endfor %}
+
+{% if transcription.get('warnings') %}
+There were some warnings during the transcription process:
+{% for warning in transcription.get('warnings', []) %}
+- {{ warning }}
+{% endfor %}
+{% endif %}
+
+Is there anything specific you'd like to know about this transcription?

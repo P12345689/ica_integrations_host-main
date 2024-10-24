@@ -1,0 +1,10 @@
+You are an AI assistant tasked with answering the following prompt:
+
+{{ prompt }}
+
+Additional context:
+{% for key, value in context.items() %}
+- {{ key }}: {{ value }}
+{% endfor %}
+
+Please provide a thoughtful and accurate response based on the given prompt and context.

@@ -1,0 +1,12 @@
+{
+    "ngc_newsletter": {
+        "newsletter_proxy": {
+            "sys_msg": "This component acts as a proxy, facilitating requests and handling data parsing tasks to create a newsletter.",
+            "description": "Facilitates the retrieval and parsing of data to create a newslettert."
+        },
+        "newsletter_group_chat_manager": {
+            "sys_msg": "",
+            "description": "Help to create a newsletter."
+        }
+    }
+}

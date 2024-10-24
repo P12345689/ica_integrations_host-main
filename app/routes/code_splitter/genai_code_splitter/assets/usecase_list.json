@@ -1,0 +1,76 @@
+{
+    "SpringBoot_to_Quarkus": {
+        "parser": "java",
+        "max_no_tokens": 0,
+        "input": "java",
+        "output": "java",
+        "description": "Java SpringBoot to Quarkus conversion",
+        "primary_prompt": "GenAI-4_SpringBoot2Qkus.04",
+        "filter_code": {"start": "<code>", "end": "</code>"},
+        "genai_platform": {
+            "genai": {
+                "java_src": "GenAI-4_SpringBoot2Qkus.04",
+                "import": "GenAI-7_SpringBoot2Qkus_Imports.01",
+                "class": "GenAI-8_SpringBoot2Qkus_ClassMethods.01",
+                "method": "GenAI-8_SpringBoot2Qkus_ClassMethods.01",
+                "interface": "GenAI-9_SpringBoot2Qkus_Interface.01"
+            },
+            "ica": {
+                "java_src": {"template_name":"springboot_to_quarkus_template.jinja", "model":"Llama3.1 8b Instruct"},
+                "import": {"template_name":"springboot_to_quarkus_import_template.jinja", "model":"Code Llama"},
+                "class": {"template_name":"springboot_to_quarkus_classmethod_template.jinja", "model":"Llama3.1 8b Instruct"},
+                "method": {"template_name":"springboot_to_quarkus_classmethod_template.jinja", "model":"Llama3.1 8b Instruct"},
+                "interface": {"template_name":"springboot_to_quarkus_template.jinja", "model":"Llama3.1 8b Instruct"}
+            }
+        }
+    },
+    "Java_to_Business_Rule": {
+        "parser": "java",
+        "max_no_tokens": 0,
+        "input": "java",
+        "output": "java",
+        "description": "Java to Business Rule",
+        "primary_prompt": "GenAI-62_Java2BusinessRuleByCategory",
+        "genai_platform": {
+            "genai": {
+                "java_src": "GenAI-62_Java2BusinessRuleByCategory.01",
+                "import": "GenAI-62_Java2BusinessRuleByClass",
+                "class": "GenAI-62_Java2BusinessRuleByClass",
+                "method": "GenAI-62_Java2BusinessRuleByClass",
+                "interface": "GenAI-62_Java2BusinessRuleByClass"
+            },
+            "ica": {
+                "java_src": {"template_name":"business_rules_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "import": {"template_name":"business_rules_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "class": {"template_name":"business_rules_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "method": {"template_name":"business_rules_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "interface": {"template_name":"business_rules_template.jinja", "model":"Llama3.1 70b Instruct"}
+            }
+        }
+    },
+    "Java_X_to_Java_Y_Conversion" : {
+        "parser": "java",
+        "max_no_tokens": 0,
+        "input": "java",
+        "output": "java",
+        "description": "Java X to Java Y Conversion",
+        "primary_prompt": "GenAI-82_Java8toJava17_java.02",
+        "filter_code": {"start": "<code>", "end": "</code>"},
+        "genai_platform": {
+            "genai": {
+                "java_src": "GenAI-82_Java8toJava17_java.02",
+                "import": "GenAI-82_Java8toJava17_java.03",
+                "class": "GenAI-82_Java8toJava17_java.05",
+                "method": "GenAI-82_Java8toJava17_java.04",
+                "interface": "GenAI-82_Java8toJava17_java.02"
+            },
+            "ica": {
+                "java_src": {"template_name":"java_x_to_java_y_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "import": {"template_name":"java_x_to_java_y_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "class": {"template_name":"java_x_to_java_y_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "method": {"template_name":"java_x_to_java_y_template.jinja", "model":"Llama3.1 70b Instruct"},
+                "interface": {"template_name":"java_x_to_java_y_template.jinja", "model":"Llama3.1 70b Instruct"}
+            }
+        }
+    }
+}

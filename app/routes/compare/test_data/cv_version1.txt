@@ -1,0 +1,28 @@
+John Doe
+123 Main St, Anytown, USA
+john.doe@email.com | (555) 123-4567
+
+SUMMARY
+Motivated software engineer with 3 years of experience in web development, specializing in JavaScript and Python.
+
+SKILLS
+- Programming Languages: JavaScript, Python, HTML, CSS
+- Frameworks: React, Node.js, Express
+- Databases: MongoDB, MySQL
+- Tools: Git, Docker
+
+EXPERIENCE
+Software Engineer | TechStart Inc. | 2018 - Present
+- Developed and maintained responsive web applications using React and Node.js
+- Collaborated with design team to implement user-friendly interfaces
+- Participated in code reviews and mentored junior developers
+
+Junior Developer | CodeCraft Solutions | 2016 - 2018
+- Assisted in the development of client websites using WordPress and PHP
+- Implemented custom plugins to extend WordPress functionality
+
+EDUCATION
+Bachelor of Science in Computer Science | State University | 2012 - 2016
+
+CERTIFICATIONS
+- Certified JavaScript Developer

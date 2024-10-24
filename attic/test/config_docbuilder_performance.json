@@ -1,0 +1,33 @@
+{
+    "server_url": "http://localhost:8080",
+    "endpoints": [
+        {
+            "method": "GET",
+            "path": "/health",
+            "interval": 1,
+            "payload": null,
+            "content_type": "application/json"
+        },
+        {
+            "method": "POST",
+            "path": "/experience/docbuilder/generate_docs/invoke",
+            "interval": 0.1,
+            "payload": {
+                "input_text": "# Various kinds of boat\n ## This is a markdown generated pptx\n ## This is it\n ## This is just the data\n## Raw\n## This is it\n## This is it\n## this is just it \n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it\n## this is just it"
+            },
+            "content_type": "application/json"
+        },
+        {
+            "method": "POST",
+            "path": "/datagenerator/invoke",
+            "interval": 1,
+            "payload": {
+                "num_rows": 2000,
+                "sample_csv":"name\nMihai",
+                "data_types":""
+            },
+            "content_type": "application/json"
+        }
+    ],
+    "concurrency_level": 10
+}

@@ -1,0 +1,77 @@
+Use the information in this README to generate the appropriate mkdocs documentation.
+See the example at the bottom that shows how this would look like for an integration called docbuilder. Adapt the example to the info in the README.
+
+So use the information below, to generate an mkdocs page, with the right title, author, description, etc.
+
+{{ content }}
+
+Add appropriate headings, formatting, and any additional explanations as needed.
+
+The resulting mkdocs page is intended for end-user in the UI, so please adapt any source curl commands to descriptions of inputs, outputs, etc.
+
+Follow the provided example below of what sections to include. Here is an example output for a docbuilder integration. Adapt everything below based on the README above.
+
+---
+classification: confidential #Remove this line if it's not IBM Confidential.
+status: draft #Status can be draft, reviewed or published.
+owner: Mihai Criveti
+tags:
+    - production
+contributors:
+reviewers:
+---
+
+# 📄 Document Builder
+
+??? info "Builds pptx and docx documents - Info"
+    **Author/Maintainers**: Mihai Criveti
+
+    **Capabilities**: Creates PowerPoint and Word documents from any input test, with selectable PowerPoint styles. Also returns the markup text used to generate the documents, which can be used with models, assistants or edited manually to further modify the generated documents.
+
+![Docbuilder](images/docbuilder.gif)
+
+## Using the integration
+
+- Input: An idea or markdown text. Example: "GenAI Use Cases for Healthcare"
+- Input: A template to use. Ex: IBM Consulting Green
+- Output: A link to a pptx and docx document, and the markdown outline which can be used as input to further edit the documents.
+
+## Multi-lingual support
+
+You can ask for the content for the presentation to be generated in a different language, by adding something like "Please reply with the content of the presentation in Japanese".
+
+For example:
+
+自動車業界におけるGenAIの使用事例. プレゼンテーションの内容を日本語で返してください。
+
+## Experience Layer Architecture
+
+```mermaid
+graph TD
+    subgraph documentBuilderAgent ["<b>Document Builder Agent (Core)</b>"]
+    documentNode(["<b>📄 Document Builder Agent</b>"])
+    end
+
+    subgraph tools ["<b>Builder Tools</b>"]
+    coverPageBuilder(["<b>🖼 Cover Page Builder</b><br/>Generates cover page image"])
+    ragNode(["<b>📚 RAG</b><br/>Document collection handling"])
+    agentsNode(["<b>🤖 Agents</b><br/>Generate Markdown for layout"])
+    googleNode(["<b>🌐 Google</b><br/>Internet search for info"])
+    powerpointNode(["<b>📊 Powerpoint / DOCX Builder</b><br/>Render output to file"])
+    end
+
+    %% Connectionsq
+    documentNode -->|uses| coverPageBuilder
+    documentNode -->|uses| ragNode
+    documentNode -->|uses| agentsNode
+    documentNode -->|uses| googleNode
+    documentNode -->|uses| powerpointNode
+
+    %% Styles
+    style documentNode fill:#f9d5e5,color:#000;
+    style coverPageBuilder fill:#eeac99,color:#000;
+    style ragNode fill:#eeac99,color:#000;
+    style agentsNode fill:#eeac99,color:#000;
+    style googleNode fill:#eeac99,color:#000;
+    style powerpointNode fill:#eeac99,color:#000;
+```

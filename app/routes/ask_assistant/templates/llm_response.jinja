@@ -1,0 +1,9 @@
+Here's the answer to your question about assistants:
+
+{{ result }}
+
+This answer is based on the following assistants:
+
+{% for assistant in assistants %}
+- {{ assistant.title }} (ID: {{ assistant.id }})
+{% endfor %}

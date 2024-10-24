@@ -1,0 +1,9 @@
+{
+    "status": "success",
+    "action": "{{ action }}",
+    "assistant": "{{ assistant_name }}",
+    "thread_id": "{{ thread_id }}",
+    "response": {{ result | tojson }},
+    "message": "{% if action.startswith('invoke') %}Conversation with {{ assistant_name }} assistant completed successfully.{% else %}Operation '{{ action }}' completed successfully.{% endif %}",
+    "timestamp": "{{ timestamp }}"
+}

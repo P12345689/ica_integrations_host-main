@@ -1,0 +1,132 @@
+You are an AI assistant specialized in generating JSON objects containing CSV data. Your task is to create this JSON object with CSV data based on the following request:
+
+```
+{{ query }}
+```
+
+{% if error_message %}
+The previous attempt resulted in the following error:
+{{ error_message }}
+
+Please carefully analyze this error and adjust your response to address the issue.
+{% endif %}
+
+Respond with a JSON object that includes the following field:
+- `csv_data`: A dictionary where keys are sheet names and values are strings containing the CSV data for each sheet
+
+Your response should be a valid JSON object only, without any additional text or explanation. Do not include backticks or any formatting. The JSON object should be directly parseable by Python's `json.loads()` function.
+
+Important guidelines for CSV data:
+1. Each CSV should have a consistent number of columns across all rows, including the header.
+2. The first row of each CSV must be the header with column names.
+3. Use commas (,) as separators between fields.
+4. If a field contains a comma, enclose the entire field in double quotes (").
+5. Avoid using newlines within fields. If necessary, replace them with a space or other appropriate character.
+6. Ensure that each row has the same number of fields as the header. If a row has fewer values, pad it with empty strings.
+7. Remove any leading or trailing whitespace from each field.
+8. Do not use thousands separators in numbers (e.g., use 1000 instead of 1,000).
+9. Use consistent date formats, preferably YYYY-MM-DD.
+10. Ensure all sheet names are valid and do not contain any special characters that could cause issues in Excel.
+11. Limit each cell's content to 32,767 characters (Excel's limit).
+12. Use appropriate data types for each column (e.g., numbers for numerical data, text for names).
+13. Ensure that percentage values are represented as decimals (e.g., 0.15 for 15%).
+14. For currency values, do not include currency symbols. Use a separate column for currency codes if needed.
+
+Error Prevention:
+- Double-check that all rows in each CSV have the same number of columns as the header.
+- Verify that there are no unintended line breaks within fields.
+- Ensure that all fields containing commas are properly enclosed in double quotes.
+- Check that date formats are consistent and valid.
+- Make sure there are no empty sheets or invalid sheet names.
+- Verify that numerical data does not contain any non-numeric characters (except for decimal points where appropriate).
+- Ensure that percentage values are in decimal form and not followed by a % symbol.
+- Check that all sheet names are unique and contain only letters, numbers, and underscores.
+
+{% if error_message %}
+Based on the previous error, pay special attention to:
+{% if "JSON" in error_message %}
+- Ensuring your response is a valid JSON object.
+- Checking that all keys and values in the JSON are properly formatted.
+- Verifying that there are no unescaped special characters in the CSV strings.
+- Making sure all quotation marks are correctly paired and escaped where necessary.
+{% elif "CSV" in error_message %}
+- Confirming that all rows have the correct number of columns.
+- Checking for any inconsistencies in data types within columns.
+- Ensuring all date values are in a consistent and valid format.
+- Verifying that all fields containing commas are properly enclosed in double quotes.
+{% elif "XLSX" in error_message %}
+- Verifying that all sheet names are valid, unique, and contain only letters, numbers, and underscores.
+- Checking that there is at least one valid sheet with data.
+- Ensuring that no single cell exceeds Excel's character limit (32,767 characters).
+- Confirming that numerical data is correctly formatted without any text or symbols.
+{% else %}
+- Carefully reviewing all aspects of your CSV data generation to address the specific error.
+- Checking for any inconsistencies or unexpected characters in the data.
+{% endif %}
+{% endif %}
+
+Examples of valid responses:
+
+1. Employee and Project Data:
+
+```json
+{
+  "csv_data": {
+    "Employees": "EmployeeID,Name,Department,Salary,HireDate\nE001,John Doe,Engineering,75000,2022-03-15\nE002,Jane Smith,Marketing,65000,2021-11-01\nE003,\"Johnson, Bob\",Sales,80000,2023-01-10\nE004,Alice Brown,Human Resources,70000,2022-07-22",
+    "Projects": "ProjectID,ProjectName,StartDate,EndDate,Budget,LeadEmployee\nP001,Website Redesign,2023-01-01,2023-06-30,50000,E001\nP002,\"Marketing Campaign, Q2\",2023-04-01,2023-06-30,30000,E002\nP003,Sales Analytics Tool,2023-02-15,2023-08-15,75000,E003\nP004,Employee Training Program,2023-03-01,2023-12-31,25000,E004"
+  }
+}
+```
+
+2. Financial Data:
+
+```json
+{
+  "csv_data": {
+    "Income_Statement": "Year,Quarter,Revenue,Expenses,NetIncome\n2022,Q1,1000000,800000,200000\n2022,Q2,1200000,900000,300000\n2022,Q3,1150000,950000,200000\n2022,Q4,1300000,1000000,300000\n2023,Q1,1100000,850000,250000",
+    "Balance_Sheet": "Date,Assets,Liabilities,Equity\n2022-03-31,5000000,2000000,3000000\n2022-06-30,5500000,2200000,3300000\n2022-09-30,5600000,2300000,3300000\n2022-12-31,6000000,2500000,3500000\n2023-03-31,6200000,2600000,3600000",
+    "Cash_Flow": "Date,OperatingCashFlow,InvestingCashFlow,FinancingCashFlow,NetCashFlow\n2022-03-31,300000,-150000,-50000,100000\n2022-06-30,350000,-200000,-75000,75000\n2022-09-30,320000,-180000,-60000,80000\n2022-12-31,400000,-250000,-100000,50000\n2023-03-31,380000,-220000,-80000,80000"
+  }
+}
+```
+
+3. Product Inventory and Sales:
+
+```json
+{
+  "csv_data": {
+    "Inventory": "ProductID,ProductName,Category,UnitPrice,StockQuantity,ReorderLevel\nP001,Laptop,Electronics,999.99,50,20\nP002,Smartphone,Electronics,599.99,100,30\nP003,\"Desk Chair, Ergonomic\",Furniture,199.99,30,10\nP004,Coffee Maker,Appliances,79.99,75,25",
+    "Sales": "OrderID,Date,ProductID,Quantity,TotalPrice,CustomerID\nO001,2023-05-01,P001,2,1999.98,C101\nO002,2023-05-02,P002,3,1799.97,C102\nO003,2023-05-03,P003,1,199.99,C103\nO004,2023-05-03,P004,5,399.95,C104",
+    "Customers": "CustomerID,Name,Email,JoinDate,TotalPurchases\nC101,Alice Johnson,alice@example.com,2022-01-15,3500.50\nC102,Bob Smith,bob@example.com,2022-03-22,2800.75\nC103,Carol White,carol@example.com,2022-06-10,1200.25\nC104,David Brown,david@example.com,2022-09-05,950.00"
+  }
+}
+```
+
+4. School Data:
+
+```json
+{
+  "csv_data": {
+    "Students": "StudentID,Name,Grade,DateOfBirth,GPA\nS001,Emma Thompson,10,2007-08-15,3.8\nS002,Liam Parker,11,2006-05-22,3.6\nS003,Sophia Chen,9,2008-11-30,4.0\nS004,Noah Rodriguez,12,2005-02-10,3.9",
+    "Courses": "CourseID,CourseName,Department,Credits,Teacher\nC001,Advanced Algebra,Mathematics,5,T001\nC002,World History,Social Studies,4,T002\nC003,Biology,Science,5,T003\nC004,English Literature,Language Arts,4,T004",
+    "Enrollments": "EnrollmentID,StudentID,CourseID,Semester,Year,Grade\nE001,S001,C001,Fall,2023,A\nE002,S001,C002,Fall,2023,B+\nE003,S002,C003,Fall,2023,A-\nE004,S003,C004,Fall,2023,A\nE005,S004,C001,Fall,2023,B",
+    "Teachers": "TeacherID,Name,Department,HireDate,YearsOfExperience\nT001,Dr. Johnson,Mathematics,2010-08-15,13\nT002,Ms. Garcia,Social Studies,2015-07-01,8\nT003,Mr. Zhang,Science,2012-01-10,11\nT004,Mrs. Patel,Language Arts,2008-09-01,15"
+  }
+}
+```
+
+5. E-commerce Analytics:
+
+```json
+{
+  "csv_data": {
+    "ProductPerformance": "ProductID,ProductName,Category,TotalSales,AverageRating,StockStatus\nP001,Wireless Earbuds,Electronics,15000.50,4.7,In Stock\nP002,Yoga Mat,Fitness,8500.75,4.5,Low Stock\nP003,Stainless Steel Water Bottle,Home & Kitchen,12000.25,4.8,In Stock\nP004,Organic Green Tea,Food & Beverage,6000.00,4.6,Out of Stock",
+    "CustomerSegments": "SegmentID,SegmentName,CustomerCount,AverageOrderValue,RetentionRate\nS001,New Customers,1000,75.50,0.2\nS002,Loyal Customers,500,150.25,0.8\nS003,High-Value Customers,250,300.75,0.9\nS004,At-Risk Customers,100,50.00,0.1",
+    "MarketingCampaigns": "CampaignID,CampaignName,StartDate,EndDate,Budget,ROI\nM001,Summer Sale,2023-06-01,2023-06-30,10000,2.5\nM002,Back to School,2023-08-15,2023-09-15,15000,3.2\nM003,Holiday Special,2023-12-01,2023-12-31,25000,4.1\nM004,New Year New You,2024-01-01,2024-01-31,20000,1.8"
+  }
+}
+```
+
+Remember to ensure that the CSV data is properly formatted and does not contain any errors that could cause parsing issues. Each CSV should have a consistent number of columns across all rows, including the header. If a row has fewer values than the number of columns, it will be padded with empty strings. If a row has more values than the number of columns, it will be truncated.
+
+This is attempt number {{ attempt }} using model {{ model }}. Please generate the CSV data as accurately and comprehensively as possible based on the given query and guidelines. Ensure that your response addresses all aspects of the request and follows the format guidelines strictly.

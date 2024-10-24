@@ -1,0 +1,190 @@
+# DO NOT EDIT, this is maintained by https://github.ibm.com/oic/handbook-template
+
+# Repository Information
+edit_uri: 'edit/main/docs/docs'
+docs_dir: 'docs'
+site_dir: 'site'
+remote_branch: 'gh-pages'
+remote_name: 'origin'
+
+# Server info
+dev_addr: '127.0.0.1:8080'
+
+# Legal links (do not edit or remove)
+legal:
+  privacy_label: 'Privacy Policy'
+  privacy_link: 'https://w3.ibm.com/w3publisher/w3-privacy-notice/'
+  terms_label: 'Terms of Use'
+  terms_link: 'https://w3.ibm.com/w3publisher/w3-terms-of-use'
+  a11y_label: 'Accessibility'
+  a11y_link: 'https://w3.ibm.com/able/index.html'
+  bcg_label: 'Business Conduct Guidelines'
+  bcg_link: 'https://w3.ibm.com/w3publisher/trust-compliance/bcgs'
+
+# Handbook Template Information
+oic_handbook:
+  template_repo: 'https://github.ibm.com/oic/handbook-template/'
+  # See https://github.ibm.com/oic/handbook-template/wiki/Releases
+  # for more information on versioning
+  template_version: 'v2023.1.1-main'
+  template_display_info: true
+  # Array of extra .css stylesheets. To be customized in mkdocs.yml
+  extra_css: {}
+  # Array of extra .js scripts. To be customized in mkdocs.yml
+  extra_javascript: {}
+
+# Theme
+theme:
+  name: material
+  custom_dir: theme
+
+  # Static files
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: carbon-design-light
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: carbon-design-dark
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  font:
+    text: 'IBM Plex Sans'
+    code: 'IBM Plex Mono'
+  favicon: 'favicon.ico'
+  logo: 'logo-ibm.png'
+
+
+# hide:
+#   - navigation         # Hide left navigation
+#   - toc                # Hide right navigation
+
+# extra:
+#     generator: false  # This is an insiders feature
+
+# Extra stylesheet
+extra_css:
+  - 'carbon.css'
+  - 'pdf.css'
+
+# Extra links as icons at the bottom of the page
+extra:
+  social:
+    - icon: fontawesome/brands/slack
+      link: https://ibm.enterprise.slack.com/archives/C04U5TE3PFV
+    - icon: fontawesome/brands/github
+      link: https://github.ibm.com/destiny/consulting_assistants_api
+    - icon: fontawesome/solid/globe
+      link: https://www.ibm.com/
+
+# Configure the Markdown extensions for magic links
+markdown_extensions:
+  admonition: {}
+  attr_list: {}
+  def_list: {}
+  tables: {}
+  abbr: {}
+  footnotes: {}
+  md_in_html: {}
+  meta: {}
+  smarty:
+      smart_quotes: false
+  pymdownx.betterem: {}
+  pymdownx.critic: {}
+  pymdownx.superfences:
+     preserve_tabs: true
+     custom_fences:
+       - name: mermaid
+         class: mermaid
+         format: !!python/name:pymdownx.superfences.fence_code_format
+       - name: flow
+         class: uml-flowchart
+         format: !!python/name:pymdownx.superfences.fence_code_format
+       - name: sequence
+         class: uml-sequence-diagram
+         format: !!python/name:pymdownx.superfences.fence_code_format
+       - name: math
+         class: arithmatex
+         format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
+  pymdownx.highlight:
+      line_spans: __span
+      anchor_linenums: true
+      pygments_lang_class: true
+      extend_pygments_lang:
+        - name: php-inline
+          lang: php
+          options:
+            startinline: true
+        - name: pycon3
+          lang: pycon
+          options:
+            python3: true
+      linenums_style: pymdownx-inline
+  pymdownx.inlinehilite:
+        custom_inline:
+        - name: math
+          class: arithmatex
+          format: !!python/name:pymdownx.arithmatex.inline_mathjax_format
+  pymdownx.tilde: {}
+  pymdownx.caret: {}
+  pymdownx.smartsymbols: {}
+  pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_png
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      options:
+        custom_icons:
+          - docs/_icons
+  pymdownx.escapeall:
+      hardbreak: true
+      nbsp: true
+  pymdownx.tasklist:
+      custom_checkbox: true
+  pymdownx.progressbar: {}
+  pymdownx.arithmatex: {}
+  pymdownx.mark: {}
+  pymdownx.striphtml: {}
+  pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  pymdownx.keys:
+      separator: "\uff0b"
+  pymdownx.details: {}
+  pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  search: {}
+  inline-svg: {}
+  table-reader: {}
+  git-revision-date-localized:
+      fallback_to_build_date: true
+  git-authors: {}
+  awesome-pages:
+      filename: .pages
+      collapse_single_pages: false
+      strict: false
+  minify:
+      minify_html: true
+  blog:
+      format: "(%m/%d/%y)"
+      folder: "blog"
+      articles: 10                 # How many do we display
+      display-article-date: true   #
+      display-more-articles: true  # Can we display the previous articles section, or is it better if we hide it?
+  pdf-export:
+      verbose: false
+      media_type: print
+      enabled_if_env: ENABLE_PDF_EXPORT
+      combined: false

@@ -1,0 +1,22 @@
+Generate a .pages file for MkDocs navigation using the following directories:
+{% for dir in directories %}
+- {{ dir }}
+{% endfor %}
+
+Please follow these guidelines:
+1. Use appropriate emojis that represent the content or purpose of each directory.
+2. Structure the navigation logically, grouping related items if necessary.
+3. Use clear and concise labels for each navigation item.
+4. If applicable, create sub-sections for better organization.
+5. Ensure the structure is easy to read and navigate.
+
+Provide the .pages content in YAML format below:
+
+nav:
+  - "🔌 Overview": index.md
+  - "Public (Production)":
+    - "📄 Document Builder": docbuilder.md
+    - "🔢 Synthetic Data Generator": datagenerator.md
+
+
+Only provided the content starting from nav, don't quite it, don't add any other explanations, just valid yaml as output.

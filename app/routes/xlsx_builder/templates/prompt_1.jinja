@@ -1,0 +1,75 @@
+Respond with a JSON object that includes the following fields:
+- `csv_data`: A dictionary where keys are sheet names and values are strings containing the CSV data for each sheet
+
+Your response should be a valid JSON object only, without any additional text or explanation. Do not include backticks or any formatting. The JSON object should be directly parseable by Python's `json.loads()` function.
+
+
+## Query:
+
+This JSON object should define the following query:
+
+```
+{{ query }}
+```
+
+## Additional instructions:
+
+{% if error_message %}
+The previous attempt resulted in the following error:
+{{ error_message }}
+
+Please carefully analyze this error and adjust your response to address the issue.
+{% endif %}
+
+Respond with a JSON object that includes the following field:
+- `csv_data`: A dictionary where keys are sheet names and values are strings containing the CSV data for each sheet
+
+Your response should be a valid JSON object only, without any additional text or explanation. Do not include backticks or any formatting. The JSON object should be directly parseable by Python's `json.loads()` function.
+
+Important guidelines for CSV data:
+1. Each CSV should have a consistent number of columns across all rows, including the header.
+2. The first row of each CSV must be the header with column names.
+3. Use commas (,) as separators between fields.
+4. If a field contains a comma, enclose the entire field in double quotes (").
+5. Avoid using newlines within fields. If necessary, replace them with a space or other appropriate character.
+6. Ensure that each row has the same number of fields as the header. If a row has fewer values, pad it with empty strings.
+7. Remove any leading or trailing whitespace from each field.
+8. Do not use thousands separators in numbers (e.g., use 1000 instead of 1,000).
+9. Use consistent date formats, preferably YYYY-MM-DD.
+10. Ensure all sheet names are valid and do not contain any special characters that could cause issues in Excel.
+
+Error Prevention:
+- Double-check that all rows in each CSV have the same number of columns as the header.
+- Verify that there are no unintended line breaks within fields.
+- Ensure that all fields containing commas are properly enclosed in double quotes.
+- Check that date formats are consistent and valid.
+- Make sure there are no empty sheets or invalid sheet names.
+
+{% if error_message %}
+Based on the previous error, pay special attention to:
+{% if "JSON" in error_message %}
+- Ensuring your response is a valid JSON object.
+- Checking that all keys and values in the JSON are properly formatted.
+- Verifying that there are no unescaped special characters in the CSV strings.
+{% elif "CSV" in error_message %}
+- Confirming that all rows have the correct number of columns.
+- Checking for any inconsistencies in data types within columns.
+- Ensuring all date values are in a consistent and valid format.
+{% elif "XLSX" in error_message %}
+- Verifying that all sheet names are valid and unique.
+- Checking that there is at least one valid sheet with data.
+- Ensuring that no single cell exceeds Excel's character limit (32,767 characters).
+{% else %}
+- Carefully reviewing all aspects of your CSV data generation to address the specific error.
+{% endif %}
+{% endif %}
+
+Example of a valid response:
+
+```json
+{
+  "csv_data": {
+    "Employee Data": "EmployeeID,Name,Department,Salary,HireDate\nE001,John Doe,Engineering,75000,2022-03-15\nE002,Jane Smith,Marketing,65000,2021-11-01\nE003,\"Johnson, Bob\",Sales,80000,2023-01-10\nE004,Alice Brown,Human Resources,70000,2022-07-22",
+    "Project Assignments": "ProjectID,ProjectName,EmployeeID,Role,StartDate\nP001,Website Redesign,E001,Lead Developer,2023-01-01\nP002,Marketing Campaign,E002,Project Manager,2023-02-15\nP003,Sales Initiative,E003,Sales Lead,2023-03-01\nP004,HR System Upgrade,E004,Project Coordinator,2023-04-10"
+  }
+}

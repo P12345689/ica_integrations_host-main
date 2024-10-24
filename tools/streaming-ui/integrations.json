@@ -1,0 +1,132 @@
+{
+    "server_url": "http://localhost:8080",
+    "endpoints": [
+        {
+            "method": "POST",
+            "path": "/streaming_test/invoke",
+            "payload": {
+                "delay": 0.1,
+                "filename": "tox.ini"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/agent_langchain/invoke",
+            "payload": {
+                "query": "{{ input }}"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/system/wikipedia/retrievers/search/invoke",
+            "payload": {
+                "search_string": "{{ input }}",
+                "results_type": "summary"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/experience/docbuilder/generate_docs/invoke",
+            "payload": {
+                "input_text": "{{ input }}",
+                "template_type": "Corporate Strategy"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/datagenerator/invoke",
+            "payload": {
+                "num_rows": 20,
+                "sample_csv": "{{ input }}",
+                "data_types": ""
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/experience/joke/retrievers/get_joke/invoke",
+            "payload": {
+                "topic": "{{ input }}"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/system/mermaid_service/transformers/syntax_to_image/invoke",
+            "payload": {"query": "{{ input }}"},
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/system/plantuml/transformers/syntax_to_image/invoke",
+            "payload": {"description": "{{ input }}"},
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/autogen_translator/result",
+            "payload": {
+                "text": "{{ input }}",
+                "languageFrom": "{{ input }}",
+                "languageTo": "{{ input }}"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/autogen_newsletter/result",
+            "payload": {
+                "language": "{{ input }}",
+                "industryOfInterest": "{{ input }}",
+                "email": "{{ input }}"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/autogen_mail_generator/result",
+            "payload": {
+                "text": "{{ input }}",
+                "recipientEmail": "{{ input }}"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/autogen_news_webscraper/result",
+            "payload": {
+                "newsUrl": "{{ input }}",
+                "industry": "{{ input }}"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        },
+        {
+            "method": "POST",
+            "path": "/autogen_newsletter_generator/result",
+            "payload": {
+                "newsUrl": "{{ input }}",
+                "industry": "{{ input }}",
+                "language":"{{ input }}",
+                "emailAddress": "{{ input }}"
+            },
+            "content_type": "application/json",
+            "authorization": "dev-only-token"
+        }
+    ]
+}

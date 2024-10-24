@@ -1,0 +1,10 @@
+{% for assistant in similar_assistants %}
+Assistant {{ loop.index }}:
+ID: {{ assistant.id }}
+Description: {{ assistant.description }}
+
+{% endfor %}
+
+Based on the descriptions above, please recommend the best assistant for the following input description. Provide the assistant ID and full description back in the recommendation, along with the reason:
+
+{{ input_description }}

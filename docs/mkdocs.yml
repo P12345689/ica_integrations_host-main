@@ -1,0 +1,105 @@
+# EDIT THIS FILE TO CUSTOMIZE THE HANDBOOK
+# See: https://github.ibm.com/oic/handbook-template/wiki/User-Guide for details
+# Author: Mihai Criveti
+
+# Inherit config from base
+INHERIT: ./base.yml
+
+# Project Information
+site_name: "IBM Consulting Assistants - Integrations Host"
+site_url: "https://pages.github.ibm.com/destiny/ica_integrations_host"
+site_description: "IBM Consulting Assistants Integrations Host"
+site_author: "Mihai Criveti"
+
+# Repository Information
+repo_name: 'destiny/ica_integrations_host'
+repo_url: 'https://github.ibm.com/destiny/ica_integrations_host'
+
+# Copyright
+copyright: <a href="/destiny/ica_integrations_host/about/authors">Mihai Criveti</a>.
+
+# Customize Handbook Template information visibility
+oic_handbook:
+  #template_display_info: false    # version information in the footer, defaults to true in base.yml
+  # announce_text: >
+    # IBM Consulting Assistants - Python SDK <a href="https://github.ibm.com/destiny/ica_integrations_host" target="_blank">libica/icacli</a>.
+
+# Provide some control over theme features.  Comment or un-comment as needed.
+theme:
+  language: en
+  features:
+    - announce.dismiss        # Button to dismiss the current temporary announcement
+    - content.action.edit
+    - content.action.feedback
+    # - content.action.view
+    # - content.tabs.link
+    - navigation.expand     # Expand left sidebar by default
+    - navigation.indexes      # Attach documents to sections, useful for providing overview pages
+    - navigation.instant      # Single page instant refresh
+    # - navigation.sections   # Top level tabs rendered in sidebar
+    - navigation.tabs         # Navigation tabs across top. Comment this out to have navigation on the left
+    - navigation.tabs.sticky  # Tab always displayed
+    - navigation.top          # Back-to-top button. Rendered centered and just below the header
+    - navigation.tracking     # URL updated with active anchor
+    - search.share
+    - search.suggest
+    - toc.integrate           # Integrate page TOC in left sidebar - wider page
+  icon:
+    edit: 'material/pencil-outline'
+
+markdown_extensions:
+  pymdownx.magiclink:
+      provider: 'github'
+      repo_url_shortener: true
+      repo_url_shorthand: false
+      social_url_shorthand: true
+      user: crmihai1
+      repo: destiny/ica_integrations_host
+  toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  # Allow Tags on the pages - see https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+  tags:
+      tags_file: tags.md
+  # Configure the PDF export plugin - see https://github.com/zhaoterryy/mkdocs-pdf-export-plugin
+  with-pdf: # This creates a single PDF document for the whole site
+      author: Mihai Criveti
+      copyright: Copyright &copy; Mihai Criveti
+      cover: true
+      back_cover: false
+      #
+      cover_title: ICA Integrations Host
+      cover_subtitle: IBM Consulting Assistants - Integrations Host
+      cover_logo: 'theme/logo-ibm-dark.png'
+      #custom_template_path: TEMPLATES PATH
+      #
+      toc_title: Contents
+      # heading_shift: false
+      toc_level: 2
+      #ordered_chapter_level: 2
+      #excludes_children:
+      #    - 'release-notes/:upgrading'
+      #    - 'release-notes/:changelog'
+      #
+      exclude_pages:
+          - '99.about/'
+          - 'blog'
+      #    - 'appendix/contribute/'
+      #convert_iframe:
+      #    - src: IFRAME SRC
+      #      img: POSTER IMAGE URL
+      #      text: ALTERNATE TEXT
+      #    - src: ...
+      #two_columns_level: 3
+      #
+      # render_js: true
+      #headless_chrome_path: headless-chromium
+      #
+      output_path: ./pdf/ica_integrations_host.pdf
+      enabled_if_env: ENABLE_PDF_EXPORT
+      #
+      debug_html: true
+      #show_anchors: true
+      verbose: false

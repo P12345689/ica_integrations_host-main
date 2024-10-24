@@ -1,0 +1,23 @@
+Transcription Results:
+
+{% for result in transcription.get('results', []) %}
+Result {{ loop.index }}:
+  {% for alternative in result.get('alternatives', []) %}
+  Alternative {{ loop.index }}:
+    Transcript: {{ alternative.get('transcript', '') }}
+    Confidence: {{ alternative.get('confidence', 'N/A') }}
+    {% if alternative.get('timestamps') %}
+    Timestamps:
+      {% for word, start, end in alternative.get('timestamps', []) %}
+      - {{ word }}: {{ start }} - {{ end }}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{% if transcription.get('warnings') %}
+Warnings:
+{% for warning in transcription.get('warnings', []) %}
+  - {{ warning }}
+{% endfor %}
+{% endif %}

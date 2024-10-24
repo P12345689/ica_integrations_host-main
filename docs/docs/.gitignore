@@ -1,0 +1,10 @@
+./index.md
+packages
+src
+coverage
+design/images/classes.svg
+design/images/code2flow.dot
+design/images/code2flow.gv
+design/images/code2flow.svg
+design/images/packages.svg
+design/images/snakefood.png

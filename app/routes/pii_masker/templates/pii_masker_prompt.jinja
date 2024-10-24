@@ -1,0 +1,17 @@
+{# pii_masker_prompt.jinja #}
+The user has provided the following text to process PII:
+{{ text }}
+
+They want to apply the following processing:
+- Processing type: {{ mask_type }}
+- PII types to process: {{ pii_types|join(', ') }}
+{% if custom_regex %}
+- Custom regex patterns:
+{% for key, value in custom_regex.items() %}
+  - {{ key }}: {{ value }}
+{% endfor %}
+{% endif %}
+
+Please provide a brief explanation of what PII will be processed and how, based on the given parameters. Include any relevant information about the chosen processing type and its implications.
+
+After your explanation, please end your response with the phrase "PROCESSED_TEXT:" on a new line. This will be used to separate your explanation from the actual processed text in the final output.

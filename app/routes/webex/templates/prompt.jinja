@@ -1,0 +1,39 @@
+Please analyze the following WebEx-related query and provide a response:
+
+Query: {{ query }}
+
+If the query requires a WebEx operation, respond with a JSON object that includes the following fields:
+- action: The WebEx action to perform (e.g., 'list_transcripts', 'get_transcript')
+- params: A dictionary of parameters required for the action
+- analysis: Your analysis or summary of the query and proposed action
+
+If the query is asking for a summary or analysis of a transcript, respond with a JSON object that includes:
+- action: 'get_transcript'
+- params: A dictionary with the transcript_id (if provided in the query)
+- analysis: Your summary or analysis of the query
+
+If the query is asking to list all the invitees for a meeting, respond with a JSON object that includes:
+- action: 'list_meeting_invitees'
+- params: A dictionary with the meetingId (if provided in the query), the maximum number of invitees diplayed with the key "max" and the values 100, the host email wih the key "hostEmail" and the key "panelist" to filter invitees or attendees for webinars only: If true, returns invitees. If false, returns attendees, If null, returns both invitees and attendees. Populate this field based on the query. Use exactly one of these 3 values.coHost
+- analysis: Your summary or analysis of the query
+
+If the query is asking to invite specific people to a meeting, respond with a JSON object that includes:
+- action: 'invite_people'
+- params: A dictionary with the meetingId (if provided in the query), the name of the invitee with they key "displayName", the email of the invitee with the key "email" (if no email provided, try to form the email based on context and displayName), the email of the host with the key "hostEmail" (if no host email provided, try to form the email based on context), the key "coHost" with the value true if specified for the invitee to be a cohost, false otherwise, the key "panelist" with the value true if specified for the invitee to be a cohost, false otherwise, the key "sendEmail" with the value false if specified not to send an email, true otherwise
+- analysis: Your summary or analysis of the query
+
+If query is asking for a list of the meetings, respond with a JSON object that includes:
+- action: 'list_meetings'
+- params: an empty dictionary
+- analysis: Your summary or analysis of the query
+
+If the query doesn't require a specific WebEx operation, respond with a JSON object that includes:
+- analysis: Your analysis, summary, or response to the query
+
+Your response should be a valid JSON object only, without any additional text or explanation. The JSON object should be directly parseable by Python's json.loads() function.
+
+Example of a valid response requiring a WebEx action:
+{"action": "list_transcripts", "params": {}, "analysis": "The query is requesting information about recent meetings. I'll retrieve a list of available transcripts."}
+
+Example of a valid response not requiring a WebEx action:
+{"analysis": "The query is asking about best practices for conducting effective WebEx meetings. Here's a summary of key points to consider..."}

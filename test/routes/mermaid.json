@@ -1,0 +1,8 @@
+{
+  "input": {
+    "query": "My (Suman) manager is Abantika and her manager is Svayambhu, my reportee is Gunjan and Projit.",
+    "chart_type": "org chart",
+    "style": "colorful",
+    "direction": "diagram top to bottom"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "options": [
+    {
+      "id": "46",
+      "type": "model",
+      "name": "Llama3.1 70b Instruct",
+      "description": "Llama3.1 70b Instruct from watsonx.ai. A powerful general-purpose language model suitable for a wide range of tasks."
+    },
+    {
+      "id": "5",
+      "type": "model",
+      "name": "Mixtral 8x7b Instruct",
+      "description": "Mixtral-8x7B Large Language Model (LLM) is a pretrained generative Sparse Mixture of Experts. Outperforms Llama 2 70B on most benchmarks. Suitable for complex reasoning and diverse tasks."
+    },
+    {
+      "id": "47",
+      "type": "model",
+      "name": "OpenAI GPT4o",
+      "description": "Team defined model for Azure OpenAI GPT4o. Advanced language model with strong performance across various domains."
+    },
+    {
+      "id": "13",
+      "type": "model",
+      "name": "Llama3 8B Instruct",
+      "description": "watsonx challenge Llama3 8B instruct from watsonx.ai. Smaller but efficient model for general-purpose tasks."
+    },
+    {
+      "id": "48",
+      "type": "model",
+      "name": "OpenAI GPT4 32K",
+      "description": "Team defined model for Azure OpenAI GPT4 32k tokens. Capable of handling very long contexts and complex tasks."
+    },
+    {
+      "id": "49",
+      "type": "model",
+      "name": "OpenAI GPT 3.5",
+      "description": "Team defined model for Azure OpenAI GPT 3.5 Turbo with streaming output and contextual history. Fast and efficient for many general-purpose tasks."
+    },
+    {
+      "id": "50",
+      "type": "model",
+      "name": "Claude 2 (100K)",
+      "description": "Anthropic Claude v2 via Amazon Bedrock. Advanced language model with a very large context window, suitable for complex and lengthy tasks."
+    },
+    {
+      "id": "53",
+      "type": "model",
+      "name": "Mixtral Large",
+      "description": "Mistral Large is a large language model developed by Mistral Al. Fluent in multiple languages and effective for programmatic tasks and RAG use cases."
+    },
+    {
+      "id": "8",
+      "type": "model",
+      "name": "Granite 13B V2.1",
+      "description": "Decoder-only transformer model for general use. Optimized for dialogue use cases."
+    },
+    {
+      "id": "52",
+      "type": "model",
+      "name": "Granite 34B Code Instruct V2",
+      "description": "Open source Granite 34b Code Instruct model from IBM watsonx and IBM Research. Specialized for code-related tasks and instructions."
+    },
+    {
+      "id": "51",
+      "type": "model",
+      "name": "Granite 20b Multilingual",
+      "description": "A foundation model from the IBM Granite family. Trained for English, German, Spanish, French, and Portuguese. Suitable for closed-domain question answering, summarization, generation, extraction, and classification in these languages."
+    },
+    {
+      "id": "assistant_13",
+      "type": "assistant",
+      "name": "Generate Java Code",
+      "description": "Specialized assistant for generating Java code and solving programming problems."
+    },
+    {
+      "id": "66a4868c4746df981606a11d",
+      "type": "document_collection",
+      "name": "IBM Form 10k",
+      "description": "Collection of IBM financial documents including Form 10k for information retrieval and analysis."
+    }
+  ]
+}

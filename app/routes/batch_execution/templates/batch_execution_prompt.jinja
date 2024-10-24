@@ -1,0 +1,17 @@
+{# This template is used to format prompts before execution if needed #}
+{% if model %}
+Using the {{ model }} model, please respond to the following prompt:
+{% elif assistant %}
+As the {{ assistant }} assistant, please respond to the following prompt:
+{% else %}
+Please respond to the following prompt:
+{% endif %}
+
+{{ prompt }}
+
+{% if previous_outputs %}
+Previous outputs for reference:
+{% for index, output in previous_outputs.items() %}
+Output {{ index }}: {{ output }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,61 @@
+{
+    "query": "${CA.prompt}",
+    "stream": "True",
+    "context": "${CA.context}",
+    "use_context": "True",
+    "llm_override": ["AZURE_OPENAI","scribeflowgpt4o"],
+    "crewai_config": {
+        "agents": [
+            {
+                "role": "Researcher",
+                "goal": "Uncover the real meaning of information based on the user intent",
+                "backstory": "You are a Senior Research Analyst. Your expertise lies in identifying significant facts and trends about. You have a knack for dissecting complex data and presenting actionable insights.",
+                "verbose": true,
+                "allow_delegation": false,
+                "tools": ["retrieve_website_content"],
+                "max_rpm": 60,
+                "max_iter": 40,
+                "max_execution_time": 4200
+            },
+            {
+                "role": "Writer",
+                "goal": "Craft engaging client document based on research findings",
+                "backstory": "You are a skilled writer specializing in technology topics. Your goal is to present complex information in an accessible and captivating manner.",
+                "verbose": true,
+                "allow_delegation": false,
+                "tools": ["firefly_tool"],
+                "max_rpm": 30,
+                "max_iter": 20,
+                "max_execution_time": 3600
+            },
+            {
+                "role": "Delegator",
+                "goal": "Delegate the execution to a doc builder tool",
+                "backstory": "You have a simple job to invoke a tool and take is response as your result document",
+                "verbose": true,
+                "allow_delegation": false,
+                "tools": ["docbuilder_tool_markdown_to_pptx_docx"],
+                "max_rpm": 30,
+                "max_iter": 20,
+                "max_execution_time": 3600
+            }
+        ],
+        "tasks": [
+            {
+                "description": "Context: {context}. Find relevant information regarding user {query}. You should also list the source e,g, techmeme, author and url.  You should source your information using the retrieve_website_content tool only accessing the following urls:  https://techcrunch.com or https://techmeme.com . Take care that the tool requires that its input should be a JSON string with a 'url' key containing the website URL. e.g 'url': 'https://example.com'",
+                "expected_output": "A summary document  about {query} based on the sources provided. For each relevant item include a summary of the item, author and url. ",
+                "agent": "Researcher"
+            },
+            {
+                "description": "Context: {context}. Using the insights from the researcher's report, develop an engaging markdown document about {query}.  As a great writer you used just information  provided by Researcher. Your document should be informative yet accessible, catering to a tech-savvy audience. Aim for a narrative that captures relevant information to the query but also signals trends and breakthroughs and their implications for the future. You will create a powerpoint deck in markdown format of the current news requested by the user, with one slide per news item. ",
+                "expected_output": "You will create a powerpoint deck in markdown format of the current news corresponding to  query: {query} requested by the user. Create one slide per news item. No more than 10 slides of news but you can have less than 10 slide if you cannot find relevant content in the document received from Researcher. Create each slide in markdown format.  Each slide should have a short title representative to slide content, followed by a good summary of the news item. You should also list the source e,g, techmeme, author and url. For slide title do not include slide number. As first page of the presentation generate an image that can be used to illustrate the first news item and include the image as first slide. If a news from a different source is about a topic already included in presentation do not create a slide for the news again",
+                "agent": "Writer"
+            },
+            {
+                "description": "Prefix the received text from Writer with '% Author: CrewAI' and invoke the tool docbuilder_tool_markdown_to_pptx_docx Your job is to just check that the invocation of the tool is successful and provide the correct input to the tool and return the correct output ",
+                "expected_output": "The reply received after invoking docbuilder_tool_markdown_to_pptx_docx tool.",
+                "agent": "Delegator"
+            }
+        ]
+    }
+}

@@ -1,0 +1,315 @@
+---
+metadata:
+  name: IBM Consulting Assistants Integrations Test Configuration
+  version: 1.1.0
+  author: Mihai Criveti
+  description: >
+    Comprehensive configuration file for testing various integrations of IBM Consulting Assistants.
+    This file defines the endpoints, payloads, and expected behaviors for each integration,
+    serving as both a test specification and a form of living documentation.
+  last_updated: '2024-08-04'
+
+server_url: http://localhost:8080
+concurrency_level: 3
+
+endpoints:
+  - name: Health Check
+    method: GET
+    path: /health
+    interval: 60
+    content_type: application/json
+    integrations_auth_token: dev-only-token
+    description: >
+      Performs a health check on the server. This endpoint is crucial for monitoring the overall status of the system.
+      It doesn't require any payload and should return quickly, making it ideal for frequent polling.
+      A successful response indicates that the server is up and running correctly.
+    usage_notes: This endpoint can be used in monitoring systems to trigger alerts if the server becomes unresponsive.
+    examples:
+      - payload: null
+        response:
+          status: ok
+      - payload: null
+        response:
+          status: error
+          message: Database connection failed
+
+  - name: Assistant Builder
+    method: POST
+    path: /assistant_builder/invoke
+    interval: 60
+    content_type: application/json
+    integrations_auth_token: dev-only-token
+    description: >
+      Generates an AI assistant based on the provided description. This powerful endpoint leverages
+      natural language processing to create custom assistants tailored to specific tasks.
+      It interprets the input description and generates a detailed assistant definition,
+      including task descriptions, example responses, and usage instructions.
+    usage_notes: >
+      The input description should be clear and specific. More detailed inputs generally result in
+      more accurate and useful assistants. The generated assistant can be further refined through iteration.
+    examples:
+      - payload:
+          input: Assistant to write user stories
+        response:
+          status: success
+          invocationId: 6c5a6e4e-62a2-46ef-bcc8-dd4540ada44b
+          response:
+            - message: >
+                You are an assistant that performs the following task:
+
+                Task: Write User Stories
+
+                Description: As an assistant, write clear, concise, and actionable user stories
+                that capture the requirements and needs of end-users, stakeholders, or customers,
+                ensuring they are aligned with project goals and objectives.
+
+                ...
+              type: text
+      - payload:
+          input: Assistant for data analysis
+        response:
+          status: success
+          invocationId: 7d6b7f5f-73a3-57fg-9dd9-ee6651beb55c
+          response:
+            - message: >
+                You are an assistant that performs the following task:
+
+                Task: Data Analysis
+
+                Description: As a data analysis assistant, your role is to help users interpret
+                complex datasets, perform statistical analyses, and derive meaningful insights
+                from various types of data...
+              type: text
+
+  - name: Assistant Executor
+    method: POST
+    path: /system/assistant_executor/retrievers/assistant/invoke
+    interval: 60
+    content_type: application/json
+    integrations_auth_token: dev-only-token
+    description: >
+      Executes a specific assistant with the given prompt. This endpoint allows interaction
+      with pre-built assistants, providing a way to leverage their specialized knowledge or capabilities.
+      The assistant_id specifies which assistant to use, while the prompt is the user's input or question for the assistant.
+    required_env_vars:
+      - ASSISTANT_ID
+    usage_notes: >
+      Ensure the ASSISTANT_ID environment variable is set to a valid assistant ID before using this endpoint.
+      The prompt should be relevant to the assistant's domain of expertise for best results.
+    examples:
+      - payload:
+          assistant_id: ${ASSISTANT_ID}
+          prompt: app to open car trunk with face
+        response:
+          status: success
+          invocationId: 8e7c8g6g-84b4-68gh-0ee0-ff7762cfc66d
+          response:
+            - message: >
+                Here's a high-level concept for an app that opens a car trunk using facial recognition:
+
+                1. User Authentication:
+                   - The app starts with a secure login process.
+                   - Users register their face using the phone's camera.
+
+                2. Connection to Car:
+                   - The app pairs with the car's onboard computer system via Bluetooth or Wi-Fi.
+
+                3. Facial Recognition:
+                   - When the user approaches the car, they open the app and point the camera at their face.
+                   - The app uses the phone's facial recognition capabilities to verify the user's identity.
+
+                4. Trunk Release Command:
+                   - Upon successful facial recognition, the app sends a secure command to the car's onboard computer.
+                   - The car's system verifies the command and triggers the trunk release mechanism.
+
+                5. Safety Features:
+                   - Implement a timeout feature that requires re-authentication if the trunk isn't opened within a certain timeframe.
+                   - Include an option for traditional key fob or manual override for backup.
+
+                6. Settings and Customization:
+                   - Allow users to add multiple authorized faces (e.g., family members).
+                   - Provide options to adjust sensitivity and security levels.
+
+                7. Activity Log:
+                   - Keep a log of trunk access attempts for security purposes.
+
+                Remember to prioritize security in the implementation to prevent unauthorized access.
+                This concept would require integration with the car's manufacturing process or aftermarket modifications to be fully functional.
+              type: text
+      - payload:
+          assistant_id: ${ASSISTANT_ID}
+          prompt: Write a Python function to calculate Fibonacci sequence
+        response:
+          status: success
+          invocationId: 9f8d9h7h-95c5-79hi-1ff1-gg8873dgd77e
+          response:
+            - message: >
+                Here's a Python function to calculate the Fibonacci sequence:
+
+                ```python
+                def fibonacci(n):
+                    if n <= 0:
+                        return []
+                    elif n == 1:
+                        return [0]
+                    elif n == 2:
+                        return [0, 1]
+
+                    fib = [0, 1]
+                    for i in range(2, n):
+                        fib.append(fib[i-1] + fib[i-2])
+
+                    return fib
+
+                # Example usage:
+                print(fibonacci(10))  # Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+                ```
+
+                This function does the following:
+                1. It handles edge cases for n <= 0, n == 1, and n == 2.
+                2. For n > 2, it initializes the sequence with [0, 1] and then calculates subsequent numbers.
+                3. Each new number is the sum of the two preceding ones.
+                4. The function returns the full sequence up to the nth number.
+
+                You can modify this function to return just the nth Fibonacci number if needed,
+                or to use a more memory-efficient method for very large sequences.
+              type: text
+
+  - name: Experience Docs Ask
+    method: POST
+    path: /experience/docs/ask_docs/invoke
+    interval: 60
+    content_type: application/json
+    integrations_auth_token: dev-only-token
+    description: >
+      This endpoint enables asking questions about documents in selected collections.
+      It uses natural language processing to interpret the query and search through the
+      specified document collections for relevant information. This is particularly useful
+      for extracting insights from large document sets or for creating interactive documentation systems.
+    required_env_vars:
+      - COLLECTION_ID
+    usage_notes: >
+      The COLLECTION_ID should correspond to a valid document collection. Multiple collection IDs
+      can be provided to search across various document sets. Setting 'refresh' to true will force
+      a refresh of the document cache, which may be slower but ensures the most up-to-date information.
+    examples:
+      - payload:
+          collection_ids:
+            - ${COLLECTION_ID}
+          query: What is the API endpoint used to retrieve document collections?
+          refresh: false
+        response:
+          status: success
+          invocationId: 0g9e0i8i-06d6-80ij-2gg2-hh9984ehe88f
+          response:
+            - message: >
+                The API endpoint used to retrieve document collections is:
+
+                `/system/docs/retrievers/get_collections/invoke`
+
+                This endpoint is a POST request that returns a list of available document collections.
+                It accepts an optional 'refresh' parameter in the payload, which when set to true,
+                will force a refresh of the collection cache.
+              type: text
+      - payload:
+          collection_ids:
+            - ${COLLECTION_ID}
+          query: Summarize the key features of the PII Masker integration
+          refresh: true
+        response:
+          status: success
+          invocationId: 1h0f1j9j-17e7-91jk-3hh3-ii0095fif99g
+          response:
+            - message: >
+                The PII Masker integration offers the following key features:
+
+                1. Multiple PII processing options: mask, delete, encrypt, decrypt, or replace with fake data.
+                2. Support for numerous PII types including credit card numbers, names, email addresses, phone numbers, SSNs, and more.
+                3. Custom regex support for user-defined PII patterns.
+                4. Both system-level and experience-level API endpoints.
+                5. Robust error handling and logging.
+                6. Concurrent processing for improved performance.
+                7. Customizable encryption/decryption keys for enhanced security.
+
+                The integration is designed to help maintain data privacy and comply with data protection
+                regulations by efficiently handling Personally Identifiable Information in various text inputs.
+              type: text
+
+  - name: GitHub Integration
+    method: POST
+    path: /system/github/invoke
+    interval: 60
+    content_type: application/json
+    integrations_auth_token: dev-only-token
+    description: >
+      This endpoint provides a comprehensive interface to interact with GitHub repositories.
+      It supports various actions such as listing issues, creating new issues, managing pull requests, and more.
+      This integration is crucial for automation of GitHub-related tasks and incorporating
+      version control workflows into larger systems.
+    required_env_vars:
+      - GITHUB_TOKEN
+    supported_actions:
+      - list_issues
+      - create_issue
+      - list_prs
+      - create_pr
+      - list_releases
+      - create_release
+      - get_file
+    usage_notes: >
+      Ensure the GITHUB_TOKEN has the necessary permissions for the actions you intend to perform.
+      Different actions may require different scopes. The 'params' field should be populated
+      with action-specific parameters as needed.
+    examples:
+      - payload:
+          repo_url: https://github.ibm.com/destiny/ica_integrations_host
+          action: list_issues
+          params: {}
+          github_token: ${GITHUB_TOKEN}
+        response:
+          status: success
+          invocationId: 2i1g2k0k-28f8-02kl-4ii4-jj1106gjg00h
+          response:
+            - message: >
+                Issues retrieved successfully. Here are the first 3 issues:
+
+                1. Issue #42: 'Update documentation for new features'
+                   Status: Open
+                   Assignee: john.doe@example.com
+
+                2. Issue #41: 'Fix bug in PII Masker module'
+                   Status: In Progress
+                   Assignee: jane.smith@example.com
+
+                3. Issue #40: 'Implement rate limiting for API endpoints'
+                   Status: Closed
+                   Assignee: bob.johnson@example.com
+
+                ...
+              type: text
+      - payload:
+          repo_url: https://github.ibm.com/destiny/ica_integrations_host
+          action: create_issue
+          params:
+            title: Implement new feature X
+            body: >
+              We need to implement feature X to improve user experience.
+              This feature should include...
+            labels:
+              - enhancement
+              - priority-high
+          github_token: ${GITHUB_TOKEN}
+        response:
+          status: success
+          invocationId: 3j2h3l1l-39g9-13lm-5jj5-kk2217hkh11i
+          response:
+            - message: >
+                Issue created successfully.
+
+                Issue Details:
+                - Number: #43
+                - Title: 'Implement new feature X'
+                - Status: Open
+                - Labels: enhancement, priority-high
+                - URL: https://github.ibm.com/destiny/ica_integrations_host/issues/43
+              type: text

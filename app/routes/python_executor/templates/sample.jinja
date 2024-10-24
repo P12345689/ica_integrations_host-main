@@ -1,0 +1,61 @@
+# Examples
+
+### Example 1: Calculate Factorial of a Number
+
+User Query:
+Calculate the factorial of a given number `n`.
+
+```json
+{
+    "code": "def factorial(n):\n    if n == 0:\n        return 1\n    return n * factorial(n-1)\n\nresult = factorial(5)\nprint(result)",
+    "explanation": "This code defines a recursive function `factorial` to calculate the factorial of a given number `n`. It then calls this function with `n=5` and assigns the result to the `result` variable, which is printed to the console."
+}
+```
+
+### Example 2: Sum of a List of Numbers
+
+User Query:
+Calculate the sum of a list of numbers.
+
+```json
+{
+    "code": "numbers = [1, 2, 3, 4, 5]\nresult = sum(numbers)\nprint(result)",
+    "explanation": "This code creates a list of numbers and calculates the sum using the built-in `sum` function. The result is assigned to the `result` variable and printed to the console."
+}
+```
+
+### Example 3: Find the Maximum Number in a List
+
+User Query:
+Find the maximum number in a list.
+
+```json
+{
+    "code": "numbers = [10, 20, 30, 40, 50]\nresult = max(numbers)\nprint(result)",
+    "explanation": "This code creates a list of numbers and finds the maximum value using the built-in `max` function. The result is assigned to the `result` variable and printed to the console."
+}
+```
+
+### Example 4: Check if a Number is Prime
+
+User Query:
+Check if a given number `n` is prime.
+
+```json
+{
+    "code": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nresult = is_prime(29)\nprint(result)",
+    "explanation": "This code defines a function `is_prime` to check if a given number `n` is prime. It checks divisibility from 2 to the square root of `n`. The result of checking `n=29` is assigned to the `result` variable and printed to the console."
+}
+```
+
+### Example 5: Generate Fibonacci Sequence up to N Terms
+
+User Query:
+Generate the Fibonacci sequence up to `n` terms.
+
+```json
+{
+    "code": "def fibonacci(n):\n    fib_sequence = [0, 1]\n    while len(fib_sequence) < n:\n        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])\n    return fib_sequence[:n]\n\nresult = fibonacci(10)\nprint(result)",
+    "explanation": "This code defines a function `fibonacci` to generate the Fibonacci sequence up to `n` terms. It initializes the sequence with [0, 1] and appends new terms until the desired length is reached. The result of generating 10 terms is assigned to the `result` variable and printed to the console."
+}
+```

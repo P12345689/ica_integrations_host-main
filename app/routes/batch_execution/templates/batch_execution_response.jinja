@@ -1,0 +1,15 @@
+{# This template is used to format the final response if needed #}
+Batch Execution Results:
+
+Total Executions: {{ total_executions }}
+Successful Executions: {{ successful_executions }}
+Failed Executions: {{ failed_executions }}
+
+{% if failed_executions > 0 %}
+Failed Execution Details:
+{% for index, error in failed_executions_details.items() %}
+- Execution {{ index }}: {{ error }}
+{% endfor %}
+{% endif %}
+
+The complete results are available in the attached XLSX file and CSV content.

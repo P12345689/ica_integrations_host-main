@@ -1,0 +1,11 @@
+{
+    "mtc_assistant_id": "8481",
+    "headers": ["Summary", "Description"],
+    "section_to_header_mapping": {
+        "Test Case": "Summary",
+        "Precondition": "Description",
+        "Test Steps": "Description",
+        "Expected Outcome": "Description"
+    },
+    "skip_sections": ["NEGATIVE TEST CASES", "POSITIVE TEST CASES", "NEGATIVE TEST CASES:", "POSITIVE TEST CASES:"]
+}

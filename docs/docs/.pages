@@ -1,0 +1,9 @@
+nav:
+    - "🏠 Home": index.md
+    - "👋 Develop": develop
+    - "📖 Code Documentation": app
+    - "📐 Design": design
+    - "👩‍🔬 Test Results": test
+    - "📈 Test Coverage": coverage
+    - "🛟 Help": help
+    - "🏷️ Tags": tags.md

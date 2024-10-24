@@ -1,0 +1,45 @@
+{
+    "query": "${CA.prompt}",
+    "context": "${CA.context}",
+    "use_context": "True",
+    "stream": "True",
+    "llm_override":  ["AZURE_OPENAI","scribeflowgpt4o"],
+     "crewai_config": {
+         "agents": [
+             {
+                 "role": "Researcher",
+                 "goal": "Uncover the real meaning of information based on the user intent",
+                 "backstory": "You are a Senior Research Analyst. Your expertise lies in identifying significant facts and trends. You have a knack for dissecting complex data and presenting actionable insights.",
+                 "verbose": true,
+                 "allow_delegation": false,
+                 "tools": ["get_collections_tool","query_documents_tool"],
+                 "max_rpm": 60,
+                 "max_iter": 40,
+                 "max_execution_time": 4200
+             },
+             {
+                 "role": "Writer",
+                 "goal": "Craft engaging client document based on research findings",
+                 "backstory": "You are a skilled writer specializing in technology topics. Your goal is to present complex information in an accessible and captivating manner.",
+                 "verbose": true,
+                 "allow_delegation": false,
+                 "tools": [],
+                 "max_rpm": 30,
+                 "max_iter": 20,
+                 "max_execution_time": 3600
+             }
+         ],
+         "tasks": [
+             {
+                 "description": "Context: {context}. Conduct a comprehensive analysis on {query}. If search collections tools is available use it to identify available collections and  extract the most apropriate document. Use the query document tool to query for facts that are usefull about the task . If an internet search tool is available use it to find up-to-date informationand new trends. Identify main facts. Compile your findings in a detailed report. Make sure to check with a human if the draft is good before finalizing your answer.",
+                 "expected_output": "A summary document  about {query}", 
+                 "agent": "Researcher"
+             },
+             {
+                 "description": "Context: {context}. Using the insights from the researcher's report, develop an engaging document about {query}. Your document  should be informative yet accessible, catering to a tech-savvy audience. Aim for a narrative that captures relevant information but also signals trends and breakthroughs and their implications for the future.",
+                 "expected_output": "A compelling 3 paragraphs document formatted in Markdown about {query}",
+                 "agent": "Writer"
+             }
+         ]
+     }
+}

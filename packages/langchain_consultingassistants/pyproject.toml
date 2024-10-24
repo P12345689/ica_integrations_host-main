@@ -1,0 +1,39 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pdm]
+distribution = true
+
+[project]
+name = "langchain_consultingassistants"
+version = "0.1.0"
+description = "Langchain library for IBM Consulting Assistants Extensions. Uses the libica model to connect to IBM Consulting Assistants. Calls `prompt_flow` from langchain."
+authors = [{ name = "Chris Hay", email = "chris.hay@uk.ibm.com" }, {name = "Mihai Criveti", email = "crmihai1@ie.ibm.com"}]
+readme = "README.md"
+license = {file = "LICENSE.md"}
+keywords = ["ica", "assistants", "ibm"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+
+dependencies = [
+  "langchain_core>=0.1.45",
+  "libica==0.8.0"
+]
+
+[project.urls]
+Homepage = "https://servicesessentials.ibm.com/launchpad"
+Repository = "https://github.ibm.com/destiny/consulting_assistants_api"
+Documentation = "https://pages.github.ibm.com/destiny/consulting_assistants_api/"

@@ -1,0 +1,16 @@
+{{ main_prompt }}
+
+Notes: {{ notes }}
+
+{% if context %}
+Context:
+{% for key, value in context.items() %}
+{{ key }}: {{ value }}
+{% endfor %}
+{% endif %}
+
+Placeholder: {{ placeholder }}
+Prompt: {{ prompt }}
+Instructions: {{ instructions }}
+
+Generate the content for this placeholder:

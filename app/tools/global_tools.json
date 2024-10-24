@@ -1,0 +1,128 @@
+[
+    {
+        "name": "docbuilder_tool_markdown_to_pptx_docx",
+        "function": "app.tools.global_tools.docbuilder_tool.docbuilder_tool_markdown_to_pptx_docx",
+        "description": "Tool for generating Powerpoint (PPTX) and Word (DOCX) documents from plain text input. Input should be a string containing a JSON with keys: 'input_text' (string, required): The text content to be converted into documents. Example: \"{\"input_text\": \"GenAI Use Cases in Automotive.\"}\""
+    },
+    {
+        "name": "pii_masker_tool",
+        "function": "app.tools.global_tools.pii_masker_tool.pii_masker_tool",
+        "description": "A tool that masks (delete, mask or fake) Personally Identifiable Information (PII) in text. Input should be a JSON string with a 'text' (string), 'mask_type' (string), 'encryption_key' (string), 'pii_types' (list of strings), and 'custom_regex' (string). Example: {\"text\": \"This is a text with PII which contains personal@email.com.\", \"mask_type\": \"mask\", \"pii_types\": [\"email\"]}"
+    },
+    {
+        "name": "get_system_time",
+        "function": "app.tools.global_tools.system_time_tool.get_system_time",
+        "description": "Returns the current UTC date and time in the specified format e.g. %Y-%m-%dT%H:%M:%S%Z"
+    },
+    {
+        "name": "google_search",
+        "function": "langchain_google_community.search.GoogleSearchAPIWrapper",
+        "method": "run",
+        "description": "Useful for searching for information on the internet using Google Search."
+    },
+    {
+        "name": "google_search_full",
+        "function": "app.tools.global_tools.google_tool.google_search",
+        "description": "Useful for searching for information on the internet using Google Search. For each result it returns a snippet of the web page followed by page URL. Args:\n                query (str): query to search for using Google Search."
+    },
+    {
+        "name": "ai_vision_image_recognition",
+        "function": "app.tools.global_tools.gpt4vision_tool.call_gpt4_vision_api",
+        "description": "An AI image recognition tool that uses GPT-4 Vision API to analyze images. Input should be a JSON string with 'image' (URL of the image) and 'query' (question about the image) keys. Do not return anything else, just the RAW string. Example: {\"image\": \"http://127.0.0.1:8080/system/file_upload/download/3c213c9f-1da8-442a-88d1-3b93875fde61.png\", \"query\": \"user question about the image\"}"
+    },
+    {
+        "name": "wikipedia_search",
+        "function": "app.tools.global_tools.wikipedia_tool.search_wikipedia_entries",
+        "description": "Searches Wikipedia and returns entries matching entry. Input is a string without quotes of the text you want to search on wikipedia."
+    },
+    {
+        "name": "mermaid_create_diagram",
+        "function": "app.tools.global_tools.mermaid_tool.syntax_to_image",
+        "description": "Generates a mermaid diagram image from mermaid syntax passed, returning a url.  just return syntax do not wrap in json or any other format.  here is example syntax for mermaid:\n            graph TB \n                A[President] --> B[VP of Sales]\n                A --> C[VP of Production]\n                B --> D[Sales Manager]\n                C --> E[Production Manager]\n"
+    },
+    {
+        "name": "create_chart",
+        "function": "app.tools.global_tools.chart_tool.create_chart",
+        "description": "Tool for generating a chart from the provided data.  Use create_chart tool to create.\n            Args:\n                chart_type (str): The type of chart to generate (e.g., 'bar', 'pie', 'line').\n                data (Dict[str, List[Any]]): The data for the chart.\n                title (str, optional): The title of the chart.\n            Returns:\n                str: The URL of the generated PNG file.\n            Example:\n                {\"chart_type\": \"pie\", \"data\": {\"labels\": [\"apples\", \"bananas\", \"oranges\", \"grapes\"], \"values\": [30, 25, 20, 25]}, \"title\": \"Fruit Distribution\"}"
+    },
+    {
+        "name": "retrieve_website_content_default",
+        "function": "app.tools.global_tools.retriever_website_tool.retrieve_website_content",
+        "description": "A web scraper tool that retrieves the content of a website and converts it to plain text. Input should be a string containing the website URL. e.g \"https://example.com\"}"
+    },
+    {
+        "name": "retrieve_website_content",
+        "function": "app.tools.global_tools.retriever_website_tool.retrieve_website_content",
+        "description": "A web scraper tool that retrieves the content of a website and converts it to plain text. Input should be a JSON formatted string with a 'url' key containing the website URL. e.g \"{\"url\": \"https://example.com\"\"}"
+    },
+    {
+        "name": "get_assistants_tool",
+        "function": "app.tools.global_tools.ask_assistant_tool.get_assistants_tool",
+        "description": "Tool for getting assistant information based on specified criteria. Input should be a JSON string with optional keys: 'tags' (string or list of strings), 'roles' (string or list of strings), 'search_term' (string), 'assistant_id' (string), and 'refresh' (boolean). Example: {\"tags\": [\"unified\"], \"roles\": [\"Software Developer\"]}"
+    },
+    {
+        "name": "get_prompts_tool",
+        "function": "app.tools.global_tools.ask_prompts_tool.get_prompts_tool",
+        "description": "Tool for retrieving and filtering prompts. Input should be a string that contains a JSON  with following  keys: 'tags' (string or list of strings), 'roles' (string or list of strings), 'search_term' (string), 'visibility' (string), 'user_email' (string), and 'prompt_id' (string). Example: \"{\"tags\": [\"python\"], \"roles\": \"developer\", \"user_email\": \"user@example.com\"}\". "
+    },
+    {
+        "name": "get_collections_tool",
+        "function": "app.tools.global_tools.ask_docs_tool.get_collections_tool",
+        "description": "Tool for retrieving the list of available document collections."
+    },
+    {
+        "name": "query_documents_tool",
+        "function": "app.tools.global_tools.ask_docs_tool.query_documents_tool",
+        "description": "Tool for retrieving the list of available document collections. Input should be a string containing a JSON with keys collection_ids (array(string)), query (string)  and optional document names list document_names (array(string))  Example: \"{\"collection_ids\": [\"id1\", \"id2\"], \"query\": \"What is AI?\", \"document_names\": [\"doc1.pdf\"]}\""
+    },
+    {
+        "name": "assistant_executor_tool",
+        "function": "app.tools.global_tools.assistant_executor_tool.assistant_executor_tool",
+        "description": "Tool for executing an assistant based on the provided assistant ID and prompt. Input should be a JSON string with keys: 'assistant_id' (string) and 'prompt' (string). Example: {\"assistant_id\": \"3903\", \"prompt\": \"App to open the car trunk using facial recognition\"}"
+    },
+    {
+        "name": "compare_tool",
+        "function": "app.tools.global_tools.compare_tool.get_compare_tool",
+        "description": "Tool for comparing two pieces of text or documents. Input should be a JSON string with keys: 'document1' (string), 'document2' (string), 'instructions' (string) and output_format (string). Example: {\"document1\": \"This is document 1\", \"document2\": \"This is document 2\", \"instructions\": \"compare\", \"output_format\": \"markdown\"}"
+    },
+    {
+        "name": "summarize_text_tool",
+        "function": "app.tools.global_tools.summarizer_tool.summarize_text_tool",
+        "description": "A tool that summarizes text. Input should be a JSON string with a keys: 'style (str, optional): Style of the summary (\"business\" or \"casual\"). Defaults to \"business\". output_format (str, optional): Output format of the summary (\"plain\" or \"markdown\"). Defaults to \"plain\". summary_type (str, optional): Type of summary output (\"bullets\" or \"paragraphs\"). Defaults to \"bullets\". summary_length (str, optional): Length of the summary (\"short\", \"medium\", or \"long\"). Defaults to \"medium\". additional_instruction (str, optional): Additional instruction for the summarizer. Defaults to \"\".. Example {\"text\": \"This is a long text to summarize.\", \"summary_type\": \"short\", \"summary_length\": \"medium\"}"
+    },
+    {
+        "name": "ask_prompt",
+        "function": "app.tools.global_tools.ask_prompts_tool.get_prompts_tool",
+        "description": "This integration provides services for retrieving and filtering prompts, as well as asking questions about prompts using an LLM. Input should be a JSON string with optional keys: 'tags' (list of strings), 'roles' (list of strings), 'search_term' (string), 'visibility' (string), 'user_email' (string), 'prompt_id' (string), and 'refresh' (boolean). Example: {\"tags\": [\"python\"], \"roles\": [\"developer\"], \"search_term\": \"search\", \"visibility\": \"PUBLIC\", \"user_email\": \"test@email.com\", \"prompt_id\": \"1234\", \"refresh\": true}"
+    },
+    {
+        "name": "firefly_tool",
+        "function": "app.tools.global_tools.adobe_firefly_tool.adobe_firefly_image_generation",
+        "description": "Tool for generating an image based on a prompt the list of available document collections.  Input should be a string containing a JSON with a 'query' key containing image description. e.g \"{\"query\": \"London Bridge\"}\" "
+    },
+    {
+        "name": "plantuml_tool",
+        "function": "app.tools.global_tools.plantuml_tool.plantuml_tool_generate_uml",
+        "description": "Tool for generating UML diagrams using PlantUML. Input should be a string containing the PlantUML syntax. e.g \"@startuml\nClass1 --|> Class2\n@enduml\""
+    },
+    {
+        "name": "asvs_chat",
+        "function": "app.tools.global_tools.asvs_chat_tool.asvs_chat_tool",
+        "description": "This is the tool to use for OWASP ASVS requirements listing. This integration provides services for chatting with CSV data using pandas and an LLM. Input should be a JSON containing a query, and only one of the following: csv_content (a plain text string containing valid csv), OR file_url - EXAMPLE: {\"query\": \"What are the IDs for L1 in OWASP ASVS?\", \"file_url\": \"https://example.com/asvs.csv\"}"
+    },
+    {
+        "name": "local_load_csv_chat",
+        "function": "app.tools.global_tools.local_load_csv_chat_tool.local_load_csv_chat_tool",
+		    "description": "This is the tool to use for querying locally loaded CSV content. This integration provides services for chatting with CSV data using pandas and an LLM.            Args:\n                query (str): The natural language query about the CSV data.\n                csvType (str): The specification of the csv contents on which to run the query.\n                Example:\n                {\"query\": \"What are the IDs for L1?\", \"csvType\": \"asvs\"}"
+    },
+    {
+        "name": "csv_chat",
+        "function": "app.tools.global_tools.csv_chat_tool.csv_chat_tool",
+        "description": "This integration provides services for chatting with CSV data using pandas and an LLM. Input should be a JSON containing a query, and only one of the following: csv_content (a plain text string containing valid csv), OR file_url - EXAMPLE: {\"query\": \"What are the IDs for L1 in OWASP ASVS?\", \"file_url\": \"https://example.com/asvs.csv\"}"
+    },
+    {
+        "name": "github_action",
+        "function": "app.tools.global_tools.github_tool.github_action",
+        "description": "This integration provides services using github and can be used for analysis like security, recommendations, issues on the codes. Input should be a String containing a JSON input with: repo (str), action (str), token (Optional[str])"
+    }
+]
